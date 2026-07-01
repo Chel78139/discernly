@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local runtime data (email signups, suggestions) — dev-only JSON store
+/data/runtime/*.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

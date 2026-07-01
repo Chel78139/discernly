@@ -1,26 +1,286 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ground: #1f3a2e;
+  --ground-deep: #16291f;
+  --parchment: #f2e8d8;
+  --parchment-dim: #e7dac1;
+  --ink: #241a12;
+  --copper: #c1652f;
+  --copper-dark: #a8531f;
+  --gold: #c9a227;
+  --sage: #9fb8a8;
+  --line: #cdbf9e;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ground: var(--ground);
+  --color-ground-deep: var(--ground-deep);
+  --color-parchment: var(--parchment);
+  --color-parchment-dim: var(--parchment-dim);
+  --color-ink: var(--ink);
+  --color-copper: var(--copper);
+  --color-copper-dark: var(--copper-dark);
+  --color-gold: var(--gold);
+  --color-sage: var(--sage);
+  --color-line: var(--line);
+
+  --font-serif: var(--font-fraunces), serif;
+  --font-sans: var(--font-work-sans), sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ground);
+  background-image: radial-gradient(
+      circle at 15% 8%,
+      rgba(201, 162, 39, 0.06),
+      transparent 40%
+    ),
+    radial-gradient(circle at 85% 70%, rgba(201, 162, 39, 0.05), transparent 45%);
+  color: var(--parchment);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- seal / confidence badge ---------- */
+.seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  background: #ede0c5;
+  color: var(--ink);
+  border: 1.5px solid var(--gold);
+  border-radius: 999px;
+  padding: 4px 10px 4px 8px;
+}
+.seal .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.seal.contested {
+  border-color: var(--copper);
+}
+.seal.contested .dot {
+  background: var(--copper);
+}
+
+/* ---------- ledger ticket ---------- */
+.ticket {
+  background: var(--parchment);
+  color: var(--ink);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: stretch;
+  box-shadow: 0 22px 48px -20px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.ticket-side {
+  padding: 22px;
+}
+.ticket-side.from {
+  background: var(--parchment-dim);
+}
+.ticket-side.to {
+  background: var(--parchment);
+  position: relative;
+}
+.ticket-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  display: block;
+  margin-bottom: 8px;
+}
+.ticket-product {
+  font-family: var(--font-serif);
+  font-size: 1.18rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.ticket-product.strike {
+  text-decoration: line-through;
+  text-decoration-color: var(--copper);
+  opacity: 0.65;
+}
+.ticket-note {
+  font-size: 0.84rem;
+  margin-top: 10px;
+  opacity: 0.78;
+  line-height: 1.4;
+}
+.ticket-image {
+  height: 148px;
+  width: 100%;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+.ticket-image.from {
+  filter: grayscale(0.55);
+  opacity: 0.55;
+}
+.ticket-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  width: 54px;
+  position: relative;
+}
+.ticket-divider svg {
+  width: 22px;
+  height: 22px;
+}
+.cta-row {
+  padding: 18px 22px;
+  border-top: 1px dashed var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cta-row.full {
+  grid-column: 1 / -1;
+}
+.source-link {
+  font-size: 0.78rem;
+  color: #6b5d44;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+.buy-btn {
+  background: var(--ink);
+  color: var(--parchment);
+  border: none;
+  border-radius: 4px;
+  padding: 10px 18px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.86rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.buy-btn:hover,
+.buy-btn:focus-visible {
+  background: #3a2c1d;
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.btn-copper {
+  background: var(--copper);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-copper:hover,
+.btn-copper:focus-visible {
+  background: var(--copper-dark);
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+.btn-copper:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---------- paywall overlay ---------- */
+.paywall-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(36, 26, 18, 0.88);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  gap: 10px;
+}
+.paywall-blurred {
+  filter: blur(8px);
+  transition: filter 300ms ease-out, opacity 300ms ease-out;
+  opacity: 0.4;
+}
+.paywall-revealed {
+  filter: blur(0);
+  opacity: 1;
+  transition: filter 300ms ease-out, opacity 300ms ease-out;
+}
+
+.search-rig {
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.45);
+}
+.search-rig input::placeholder {
+  color: #8a7a5f;
+}
+
+.ad-slot {
+  border: 1px dashed rgba(242, 232, 216, 0.25);
+  border-radius: 8px;
+  padding: 28px;
+  text-align: center;
+  color: var(--sage);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+}
+
+.cat-card {
+  background: rgba(242, 232, 216, 0.04);
+  border: 1px solid rgba(242, 232, 216, 0.14);
+  border-radius: 8px;
+  padding: 20px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  display: block;
+}
+.cat-card:hover,
+.cat-card:focus-visible {
+  border-color: var(--gold);
+  outline: none;
+}
+
+@media (max-width: 720px) {
+  .ticket {
+    grid-template-columns: 1fr;
+  }
+  .ticket-divider {
+    width: 100%;
+    height: 40px;
+  }
+  .ticket-divider svg {
+    transform: rotate(90deg);
+  }
+  .cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
