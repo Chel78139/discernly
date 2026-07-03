@@ -87,12 +87,12 @@ export default async function Home() {
                 Self-identifies as Christian-owned on their own About page,
                 cites Colossians 3:17. Confirmed Amazon storefront.
               </p>
-              <ConfidenceBadge tier={2} detail="self-stated by company" />
+              <ConfidenceBadge tier={1} detail="self-stated by company" />
             </div>
             <div className="cta-row full">
               <span className="source-link">View 2 sources →</span>
               <Link className="buy-btn" href="/product/method-shower-readings">
-                Get this instead →
+                See the full swap →
               </Link>
             </div>
           </div>

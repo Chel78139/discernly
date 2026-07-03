@@ -185,6 +185,15 @@ body {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
+.buy-btn:disabled {
+  background: #8a7a5f;
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.buy-btn:disabled:hover {
+  background: #8a7a5f;
+  outline: none;
+}
 
 .btn-copper {
   background: var(--copper);

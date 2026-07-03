@@ -1,6 +1,7 @@
 import { ConfidenceBadge } from "./ConfidenceBadge";
 import { SourceLinks } from "./SourceLinks";
 import { EmailUnlockForm } from "./EmailUnlockForm";
+import { buildAffiliateLabel } from "@/lib/affiliate";
 import type { Alternative, Association, Product } from "@/types/data";
 
 function ArrowDivider() {
@@ -123,9 +124,14 @@ export function ResultTicket({
         />
         {alternative &&
           (locked ? (
-            <button className="buy-btn" disabled>
-              Get this instead →
-            </button>
+            <div className="flex flex-col items-end gap-1">
+              <button className="buy-btn" disabled>
+                {buildAffiliateLabel(alternative)}
+              </button>
+              <span className="text-[0.68rem]" style={{ color: "#8a7a5f" }}>
+                Unlock above to activate
+              </span>
+            </div>
           ) : (
             <a
               className="buy-btn"
@@ -133,7 +139,7 @@ export function ResultTicket({
               target="_blank"
               rel="noopener noreferrer sponsored"
             >
-              Get this instead →
+              {buildAffiliateLabel(alternative)}
             </a>
           ))}
       </div>

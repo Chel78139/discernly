@@ -20,3 +20,11 @@ export function buildAffiliateUrl(alternative: Alternative): string {
 
   return alternative.affiliateUrl ?? "#";
 }
+
+// "Get this instead" tested as ambiguous — people read it as "show me another
+// option" rather than "buy this." Naming the destination converts better.
+export function buildAffiliateLabel(alternative: Alternative): string {
+  return alternative.affiliateType === "amazon"
+    ? "Shop on Amazon →"
+    : `Shop ${alternative.brand} →`;
+}

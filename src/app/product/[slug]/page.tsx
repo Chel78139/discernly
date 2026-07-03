@@ -9,7 +9,7 @@ import { ResultTicket } from "@/components/ResultTicket";
 import { ConfidenceBadge } from "@/components/ConfidenceBadge";
 import { SourceLinks } from "@/components/SourceLinks";
 import { getProductResult } from "@/lib/db";
-import { buildAffiliateUrl } from "@/lib/affiliate";
+import { buildAffiliateUrl, buildAffiliateLabel } from "@/lib/affiliate";
 import { UNLOCK_COOKIE } from "@/lib/unlock";
 
 export default async function ProductPage({
@@ -76,6 +76,22 @@ export default async function ProductPage({
                   <SourceLinks
                     sections={[{ title: "Sources", urls: alt.basisSources }]}
                   />
+                </div>
+                <div className="mt-4 flex justify-end">
+                  {locked ? (
+                    <button className="buy-btn" disabled>
+                      {buildAffiliateLabel(alt)}
+                    </button>
+                  ) : (
+                    <a
+                      className="buy-btn"
+                      href={buildAffiliateUrl(alt)}
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                    >
+                      {buildAffiliateLabel(alt)}
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
