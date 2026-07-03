@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { tagAmazonUrl } from "@/lib/affiliate";
 
 export function SourceLinks({
   sections,
@@ -41,7 +42,7 @@ export function SourceLinks({
                 {section.urls.map((url) => (
                   <li key={url}>
                     <a
-                      href={url}
+                      href={tagAmazonUrl(url)}
                       target="_blank"
                       rel="noopener noreferrer nofollow"
                       className="underline break-all"
