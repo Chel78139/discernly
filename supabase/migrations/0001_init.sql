@@ -73,3 +73,29 @@ create table if not exists suggestions (
 create index if not exists idx_associations_product_id on associations(product_id);
 create index if not exists idx_product_alternative_map_product_id on product_alternative_map(product_id);
 create index if not exists idx_ingredient_safety_product_id on ingredient_safety(product_id);
+
+-- Row Level Security. The app only ever talks to Supabase through the
+-- server-side service role key (see src/lib/supabase/client.ts), which
+-- bypasses RLS entirely — these policies exist to lock down what the
+-- public anon/authenticated keys can do if ever used directly.
+alter table products enable row level security;
+alter table associations enable row level security;
+alter table alternatives enable row level security;
+alter table product_alternative_map enable row level security;
+alter table ingredient_safety enable row level security;
+alter table email_signups enable row level security;
+alter table suggestions enable row level security;
+
+-- Content tables are already shown to every visitor on the site itself,
+-- so public read access is fine. No insert/update/delete policies exist
+-- for anon/authenticated, so writes still require the service role key.
+create policy "Public read access" on products for select using (true);
+create policy "Public read access" on associations for select using (true);
+create policy "Public read access" on alternatives for select using (true);
+create policy "Public read access" on product_alternative_map for select using (true);
+create policy "Public read access" on ingredient_safety for select using (true);
+
+-- email_signups and suggestions get no policies at all, so anon/
+-- authenticated keys have zero access (no read, no write) — only the
+-- service role key can touch them. Emails are PII, and suggestions are
+-- an explicitly private review queue per the project brief.
