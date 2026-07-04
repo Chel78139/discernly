@@ -16,6 +16,7 @@ interface ProductRow {
   brand: string;
   category: string;
   image_url: string;
+  aliases: string[] | null;
 }
 
 interface AlternativeRow {
@@ -30,6 +31,8 @@ interface AlternativeRow {
   affiliate_type: Alternative["affiliateType"];
   category: string;
   image_url: string;
+  asin: string | null;
+  swap_type: Alternative["swapType"];
 }
 
 interface AssociationRow {
@@ -55,6 +58,7 @@ function toProduct(row: ProductRow): Product {
     brand: row.brand,
     category: row.category,
     imageUrl: row.image_url,
+    aliases: row.aliases ?? undefined,
   };
 }
 
@@ -71,6 +75,8 @@ function toAlternative(row: AlternativeRow): Alternative {
     affiliateType: row.affiliate_type,
     category: row.category,
     imageUrl: row.image_url,
+    asin: row.asin,
+    swapType: row.swap_type,
   };
 }
 
@@ -85,14 +91,22 @@ export async function searchProducts(
   query: string,
   limit = 8,
 ): Promise<Product[]> {
-  const supabase = getSupabaseServerClient();
-  const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .or(`name.ilike.%${query}%,brand.ilike.%${query}%`)
-    .limit(limit);
-  if (error) throw error;
-  return (data ?? []).map(toProduct);
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+
+  // Matching against aliases (e.g. "7th gen" -> Seventh Generation, "&" vs
+  // "and") needs substring checks per alias, which isn't a clean single
+  // Postgres query. The catalog is small, so fetch everything and filter
+  // in JS — keeps this logic identical to lib/db/local.ts.
+  const products = await getAllProducts();
+  return products
+    .filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        p.aliases?.some((a) => a.toLowerCase().includes(q)),
+    )
+    .slice(0, limit);
 }
 
 export async function getCategories(): Promise<

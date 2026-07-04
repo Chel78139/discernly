@@ -8,8 +8,10 @@ import { AdSlot } from "@/components/AdSlot";
 import { ResultTicket } from "@/components/ResultTicket";
 import { ConfidenceBadge } from "@/components/ConfidenceBadge";
 import { SourceLinks } from "@/components/SourceLinks";
+import { ShopButton } from "@/components/ShopButton";
+import { CleanSwapNote } from "@/components/CleanSwapNote";
 import { getProductResult } from "@/lib/db";
-import { buildAffiliateUrl, buildAffiliateLabel } from "@/lib/affiliate";
+import { buildAffiliateUrl } from "@/lib/affiliate";
 import { UNLOCK_COOKIE } from "@/lib/unlock";
 
 export default async function ProductPage({
@@ -68,6 +70,7 @@ export default async function ProductPage({
                   {alt.brand} — {alt.name}
                 </div>
                 <p className="ticket-note">{alt.basisText}</p>
+                {alt.swapType === "clean" && <CleanSwapNote />}
                 <div className="flex items-center justify-between mt-3 flex-wrap gap-3">
                   <ConfidenceBadge
                     tier={alt.basisConfidence}
@@ -78,20 +81,11 @@ export default async function ProductPage({
                   />
                 </div>
                 <div className="mt-4 flex justify-end">
-                  {locked ? (
-                    <button className="buy-btn" disabled>
-                      {buildAffiliateLabel(alt)}
-                    </button>
-                  ) : (
-                    <a
-                      className="buy-btn"
-                      href={buildAffiliateUrl(alt)}
-                      target="_blank"
-                      rel="noopener noreferrer sponsored"
-                    >
-                      {buildAffiliateLabel(alt)}
-                    </a>
-                  )}
+                  <ShopButton
+                    alternative={alt}
+                    affiliateUrl={buildAffiliateUrl(alt)}
+                    locked={locked}
+                  />
                 </div>
               </div>
             ))}

@@ -81,11 +81,11 @@ export default async function Home() {
             <div className="ticket-side to">
               <span className="ticket-kicker">Verified swap</span>
               <div className="ticket-product">
-                Boll Weevil Soap Co. — Body Wash
+                Boll Weevil Soap Co. — Foaming Hand Wash
               </div>
               <p className="ticket-note">
                 Self-identifies as Christian-owned on their own About page,
-                cites Colossians 3:17. Confirmed Amazon storefront.
+                cites Colossians 3:17. Confirmed on Amazon.
               </p>
               <ConfidenceBadge tier={1} detail="self-stated by company" />
             </div>

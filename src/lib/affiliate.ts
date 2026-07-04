@@ -28,17 +28,17 @@ export function tagAmazonUrl(url: string): string {
   }
 }
 
-export function buildAffiliateUrl(alternative: Alternative): string {
+// Returns null when there's no working destination yet — an Amazon
+// alternative with no confirmed ASIN gets a clearly-marked pending state in
+// the UI rather than a guessed or search-fallback link. A wrong product
+// link is worse than no link.
+export function buildAffiliateUrl(alternative: Alternative): string | null {
   if (alternative.affiliateType === "amazon") {
-    if (alternative.affiliateUrl) {
-      return tagAmazonUrl(alternative.affiliateUrl);
-    }
-    // No ASIN wired yet — fall back to an Amazon search so the CTA still works.
-    const query = encodeURIComponent(`${alternative.brand} ${alternative.name}`);
-    return `https://www.amazon.com/s?k=${query}&tag=${AMAZON_ASSOCIATE_TAG}`;
+    if (!alternative.asin) return null;
+    return tagAmazonUrl(`https://www.amazon.com/dp/${alternative.asin}`);
   }
 
-  return alternative.affiliateUrl ?? "#";
+  return alternative.affiliateUrl ?? null;
 }
 
 // "Get this instead" tested as ambiguous — people read it as "show me another

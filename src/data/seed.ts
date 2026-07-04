@@ -5,21 +5,29 @@ import type {
   ProductAlternativeMapEntry,
 } from "@/types/data";
 
-// Seed data hand-mapped from starter-product-data.csv, applying the
-// sourcing standard in the project brief: only tier-1 (documented fact)
-// and tier-2 (contested/opinion) claims are published. Tier-3 rows
-// (Method everyday cleaners, Earth Mama Organics, Hello Bello) are
-// intentionally left out — "a wrong answer is 10x worse than a blank."
+// Seed data hand-mapped from starter-product-data.csv and the follow-up
+// starter-product-data_1.csv update, applying the sourcing standard in the
+// project brief: only tier-1 (documented fact) and tier-2 (contested/
+// opinion) claims are published. Tier-3 rows (Method everyday cleaners,
+// Earth Mama Organics, Hello Bello) and superseded rows (the original
+// Pacifica Aromapower / Boll Weevil pairing) are intentionally left out —
+// "a wrong answer is 10x worse than a blank."
 //
 // Row 21 (Earth & Eden) is not a flagged product; it appears only as an
 // alternative for The Honest Company.
+//
+// Amazon links: only alternatives with a confirmed ASIN get a working
+// amazon.com/dp/<asin> link (see src/lib/affiliate.ts). Everything else
+// has asin: null and shows a clearly marked "Amazon link coming soon"
+// state in the UI rather than a guessed link.
 
 const img = (label: string) =>
-  `https://placehold.co/400x300/F2E8D8/241A12?font=roboto&text=${encodeURIComponent(
+  `https://via.placeholder.com/400x600/CCCCCC/6B6B6B?text=${encodeURIComponent(
     label,
   )}`;
 
 const DATE_CHECKED = "2026-07-01";
+const DATE_CHECKED_UPDATE = "2026-07-03";
 
 export const products: Product[] = [
   {
@@ -77,6 +85,12 @@ export const products: Product[] = [
     brand: "Pacifica Beauty",
     category: "Beauty & Fragrance",
     imageUrl: img("Pacifica Aromapower"),
+    aliases: [
+      "pacifica perfume",
+      "pacifica aromapower",
+      "pacifica fragrance",
+      "pacifica crystal perfume",
+    ],
   },
   {
     id: "yogi-tea-herbal-blend",
@@ -125,6 +139,13 @@ export const products: Product[] = [
     brand: "Seventh Generation",
     category: "Household & Cleaning",
     imageUrl: img("Seventh Generation Laundry"),
+    aliases: [
+      "7th generation",
+      "seventh generation",
+      "7th gen",
+      "7th generation laundry",
+      "seventh generation laundry detergent",
+    ],
   },
   {
     id: "starbucks-coffee",
@@ -149,6 +170,111 @@ export const products: Product[] = [
     brand: "The Honest Company",
     category: "Baby Products",
     imageUrl: img("The Honest Company"),
+  },
+  {
+    id: "arm-hammer-laundry-detergent",
+    slug: "arm-hammer-laundry-detergent",
+    name: "Laundry Detergent",
+    brand: "Arm & Hammer",
+    category: "Household & Cleaning",
+    imageUrl: img("Arm & Hammer Laundry Detergent"),
+    aliases: [
+      "arm and hammer laundry",
+      "arm & hammer laundry",
+      "arm and hammer laundry detergent",
+    ],
+  },
+  {
+    id: "ajax-dishwasher-pods",
+    slug: "ajax-dishwasher-pods",
+    name: "Dish Detergent / Dishwasher Pods",
+    brand: "Ajax",
+    category: "Household & Cleaning",
+    imageUrl: img("Ajax Dishwasher Pods"),
+    aliases: [
+      "ajax dish soap",
+      "ajax dishwasher",
+      "ajax dishwasher pods",
+      "ajax dish detergent",
+    ],
+  },
+  {
+    id: "seventh-generation-dishwasher-pods",
+    slug: "seventh-generation-dishwasher-pods",
+    name: "Dish Detergent / Dishwasher Pods",
+    brand: "Seventh Generation",
+    category: "Household & Cleaning",
+    imageUrl: img("Seventh Generation Dishwasher Pods"),
+    aliases: [
+      "7th generation",
+      "seventh generation",
+      "7th gen",
+      "7th generation dish soap",
+      "7th generation dishwasher pods",
+      "seventh generation dish detergent",
+      "seventh generation dishwasher",
+    ],
+  },
+  {
+    id: "nyx-makeup",
+    slug: "nyx-makeup",
+    name: "Makeup (all SKUs — lip, eye, face)",
+    brand: "NYX Professional Makeup",
+    category: "Beauty & Makeup",
+    imageUrl: img("NYX Makeup"),
+    aliases: ["nyx", "nyx makeup", "nyx lipstick", "nyx foundation"],
+  },
+  {
+    id: "urban-decay-makeup",
+    slug: "urban-decay-makeup",
+    name: "Makeup (Vice palettes, Perversion mascara, Naked palettes)",
+    brand: "Urban Decay",
+    category: "Beauty & Makeup",
+    imageUrl: img("Urban Decay Makeup"),
+    aliases: [
+      "urban decay",
+      "urban decay palette",
+      "naked palette",
+      "urban decay mascara",
+      "vice palette",
+    ],
+  },
+  {
+    id: "moon-juice-supplements",
+    slug: "moon-juice-supplements",
+    name: "Supplements / Adaptogens / Beauty Powders (all SKUs)",
+    brand: "Moon Juice",
+    category: "Supplements",
+    imageUrl: img("Moon Juice"),
+    aliases: [
+      "moon juice",
+      "moon juice powder",
+      "moon juice adaptogen",
+      "moon juice beauty dust",
+    ],
+  },
+  {
+    id: "mugler-angel",
+    slug: "mugler-angel",
+    name: "Angel Eau de Parfum (all sizes)",
+    brand: "Mugler",
+    category: "Beauty & Fragrance",
+    imageUrl: img("Mugler Angel"),
+    aliases: [
+      "mugler angel",
+      "angel perfume",
+      "thierry mugler angel",
+      "angel eau de parfum",
+    ],
+  },
+  {
+    id: "gillette-venus",
+    slug: "gillette-venus",
+    name: "Venus Razors (all SKUs)",
+    brand: "Gillette Venus",
+    category: "Beauty & Personal Care",
+    imageUrl: img("Gillette Venus"),
+    aliases: ["gillette venus", "venus razor", "venus shaver"],
   },
 ];
 
@@ -347,6 +473,111 @@ export const associations: Association[] = [
     themeTag: "founder-personal-conduct",
     dateChecked: DATE_CHECKED,
   },
+  {
+    id: "assoc-arm-hammer-laundry",
+    productId: "arm-hammer-laundry-detergent",
+    claimText:
+      "Logo depicts Vulcan, the Roman god of fire and metalworking — confirmed by the company's own brand history. Same brand-wide association as the Arm & Hammer baking soda entry.",
+    sourceUrls: [
+      "https://www.armandhammer.com/en/about-us",
+      "https://en.wikipedia.org/wiki/Arm_%26_Hammer",
+      "https://en.wikipedia.org/wiki/Vulcan_(mythology)",
+    ],
+    confidenceTier: 1,
+    themeTag: "roman-mythology",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-ajax-dishwasher",
+    productId: "ajax-dishwasher-pods",
+    claimText:
+      "Named after Ajax (Telamonian Ajax), the Greek mythological hero of the Trojan War. Same brand-wide association as the Ajax Powder Cleanser entry.",
+    sourceUrls: [
+      "https://en.wikipedia.org/wiki/Ajax_the_Great",
+      "https://greekcitytimes.com/2022/06/03/hidden-ancient-greek-meaning-behind-ajax-brand-name/",
+    ],
+    confidenceTier: 1,
+    themeTag: "greek-mythology",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-seventh-gen-dishwasher",
+    productId: "seventh-generation-dishwasher-pods",
+    claimText:
+      "Brand name is explicitly drawn from an ancient Iroquois Great Law of Peace philosophy. Same brand-wide association as the Seventh Generation Laundry Detergent entry.",
+    sourceUrls: [
+      "https://www.seventhgeneration.com/blog/more-than-a-name",
+      "https://en.wikipedia.org/wiki/Seventh_Generation_Inc.",
+    ],
+    confidenceTier: 1,
+    themeTag: "indigenous-philosophy",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-nyx",
+    productId: "nyx-makeup",
+    claimText:
+      "Named after Nyx, the Greek goddess of the night. Confirmed by founder Toni Ko's own statements at the brand's 1999 launch.",
+    sourceUrls: [
+      "https://en.wikipedia.org/wiki/NYX_Cosmetics",
+      "https://www.allure.com/story/nyx-professional-makeup-founder-toni-ko",
+    ],
+    confidenceTier: 1,
+    themeTag: "greek-mythology",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-urban-decay",
+    productId: "urban-decay-makeup",
+    claimText:
+      "Founders deliberately built the brand around dark/rebellious aesthetic choices confirmed in their own words. Product lines include \"Perversion\" mascara, \"Vice\" palettes, \"Naked\" palettes, and \"Sin\" eyeshadow. Co-founders described themselves as \"co-conspirators\" in published interviews. This is dark aesthetic branding by the founders' own choice, not a specific mythology or belief-system tie.",
+    sourceUrls: [
+      "https://en.wikipedia.org/wiki/Urban_Decay_(cosmetics)",
+      "https://www.allure.com/story/urban-decay-history",
+    ],
+    confidenceTier: 1,
+    themeTag: "secular-dark-aesthetic",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-moon-juice",
+    productId: "moon-juice-supplements",
+    claimText:
+      "Founder Amanda Chantal Bacon describes the company as \"a cosmic beacon\" in her own interviews, references astrology and crystal energy throughout the brand's marketing, and publicly stated of a stolen store crystal, \"You do not want the energy of a stolen crystal.\" Company's own marketing describes Moon Juice as \"a healing force, an etheric potion, a cosmic beacon.\"",
+    sourceUrls: [
+      "https://www.theguardian.com/lifeandstyle/2015/jan/16/moon-juice-food-for-beautiful-people",
+      "https://moonjuice.com/pages/about",
+    ],
+    confidenceTier: 1,
+    themeTag: "astrology-crystal-energy",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-mugler-angel",
+    productId: "mugler-angel",
+    claimText:
+      "Bottle is a five-pointed star, described in the company's own marketing as \"a celestial bottle: a five-pointed star evoking womanhood, protection and destiny.\" Company's own copy calls it \"a cosmic object that appears supernaturally out of space\" and \"the embodiment of dreams.\"",
+    sourceUrls: [
+      "https://www.mugler.com/en-us/angel",
+      "https://en.wikipedia.org/wiki/Angel_(fragrance)",
+    ],
+    confidenceTier: 1,
+    themeTag: "celestial-supernatural",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-gillette-venus",
+    productId: "gillette-venus",
+    claimText:
+      "Named after Venus, the Roman goddess of love and beauty. Company's own brand platform and tagline: \"Reveal the goddess in you.\" The company's own brand team confirmed the internal creative platform as \"every woman can feel like a goddess.\"",
+    sourceUrls: [
+      "https://gillette.com/en-us/venus",
+      "https://en.wikipedia.org/wiki/Gillette_Venus",
+    ],
+    confidenceTier: 1,
+    themeTag: "roman-mythology",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
 ];
 
 export const alternatives: Alternative[] = [
@@ -364,22 +595,29 @@ export const alternatives: Alternative[] = [
     ],
     affiliateUrl: null,
     affiliateType: "amazon",
+    asin: null,
+    swapType: "christian",
     category: "Household & Cleaning",
     imageUrl: img("Bob's Red Mill Baking Soda"),
   },
   {
-    id: "alt-boll-weevil",
-    slug: "boll-weevil-soap-co",
-    name: "Soap / Body Wash",
+    id: "alt-boll-weevil-hand-wash",
+    slug: "boll-weevil-foaming-hand-wash",
+    name: "Foaming Hand Wash",
     brand: "Boll Weevil Soap Company",
     basisText:
-      "Explicitly self-identifies as a Christian-owned family soap business, citing Colossians 3:17 on its own About page.",
+      "Explicitly self-identifies as a Christian-owned family soap business, citing Colossians 3:17 on its own About page. Note: only the Foaming Hand Wash is confirmed available on Amazon — Boll Weevil's bar soap and body wash are not, and require a direct affiliate relationship instead.",
     basisConfidence: 2,
-    basisSources: ["https://bollweevilsoapcompany.com/pages/about-us"],
+    basisSources: [
+      "https://bollweevilsoapcompany.com/pages/about-us",
+      "https://www.amazon.com/Foaming-Boll-Weevil-Soap-Company/dp/B08RF27781",
+    ],
     affiliateUrl: null,
     affiliateType: "amazon",
+    asin: "B08RF27781",
+    swapType: "christian",
     category: "Soap & Body",
-    imageUrl: img("Boll Weevil Soap Co."),
+    imageUrl: img("Boll Weevil Foaming Hand Wash"),
   },
   {
     id: "alt-faithfully-natural",
@@ -392,6 +630,8 @@ export const alternatives: Alternative[] = [
     basisSources: ["https://faithfullynaturalsoapco.com/pages/about-us"],
     affiliateUrl: "https://faithfullynaturalsoapco.com",
     affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
     category: "Soap & Body",
     imageUrl: img("Faithfully Natural Soap Co."),
   },
@@ -406,6 +646,8 @@ export const alternatives: Alternative[] = [
     basisSources: ["https://phchnaturalsoap.net/about-us/"],
     affiliateUrl: "https://phchnaturalsoap.net",
     affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
     category: "Soap & Body",
     imageUrl: img("Pure Hearts & Clean Hands"),
   },
@@ -423,6 +665,8 @@ export const alternatives: Alternative[] = [
     ],
     affiliateUrl: null,
     affiliateType: "amazon",
+    asin: null,
+    swapType: "christian",
     category: "Household & Cleaning",
     imageUrl: img("Branch Basics All-Purpose"),
   },
@@ -437,6 +681,8 @@ export const alternatives: Alternative[] = [
     basisSources: ["https://lexiscleankitchen.com/branch-basics-inteview/"],
     affiliateUrl: null,
     affiliateType: "amazon",
+    asin: null,
+    swapType: "christian",
     category: "Household & Cleaning",
     imageUrl: img("Branch Basics Oxygen Boost"),
   },
@@ -451,6 +697,8 @@ export const alternatives: Alternative[] = [
     basisSources: ["https://lexiscleankitchen.com/branch-basics-inteview/"],
     affiliateUrl: null,
     affiliateType: "amazon",
+    asin: null,
+    swapType: "christian",
     category: "Household & Cleaning",
     imageUrl: img("Branch Basics Laundry"),
   },
@@ -465,6 +713,8 @@ export const alternatives: Alternative[] = [
     basisSources: ["https://provherbs.com/pages/our-story"],
     affiliateUrl: "https://provherbs.com",
     affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
     category: "Supplements",
     imageUrl: img("Provherbs Supplements"),
   },
@@ -478,6 +728,8 @@ export const alternatives: Alternative[] = [
     basisSources: ["https://www.eleven86water.com/our-story"],
     affiliateUrl: "https://www.eleven86water.com",
     affiliateType: "unconfirmed",
+    asin: null,
+    swapType: "christian",
     category: "Food & Beverage",
     imageUrl: img("Eleven86 Water"),
   },
@@ -495,6 +747,8 @@ export const alternatives: Alternative[] = [
     ],
     affiliateUrl: null,
     affiliateType: "amazon",
+    asin: "B07F2J6MHV",
+    swapType: "christian",
     category: "Food & Beverage",
     imageUrl: img("BOLD3 Coffee"),
   },
@@ -509,6 +763,8 @@ export const alternatives: Alternative[] = [
     basisSources: ["https://palmbeachherbalteas.com/pages/our-story"],
     affiliateUrl: null,
     affiliateType: "amazon",
+    asin: null,
+    swapType: "christian",
     category: "Food & Beverage",
     imageUrl: img("Palm Beach Herbal Tea"),
   },
@@ -526,6 +782,8 @@ export const alternatives: Alternative[] = [
     ],
     affiliateUrl: "https://everylife.com",
     affiliateType: "unconfirmed",
+    asin: null,
+    swapType: "christian",
     category: "Baby Products",
     imageUrl: img("EveryLife Diapers"),
   },
@@ -537,32 +795,171 @@ export const alternatives: Alternative[] = [
     basisText:
       "Not a confirmed Christian-founded brand, but the closest Amazon-available, non-toxic, plant-based diaper option — offered as a secondary pick alongside EveryLife.",
     basisConfidence: 2,
-    basisSources: ["https://www.earthandedenbrand.com/"],
+    basisSources: [
+      "https://www.earthandedenbrand.com/",
+      "https://www.amazon.com/Earth-Eden-Baby-Diapers-Count/dp/B07DYLJHLB",
+    ],
     affiliateUrl: null,
     affiliateType: "amazon",
+    asin: "B07DYLJHLB",
+    swapType: "christian",
     category: "Baby Products",
     imageUrl: img("Earth & Eden Diapers"),
+  },
+  {
+    id: "alt-branch-basics-dishwasher-tablets",
+    slug: "branch-basics-dishwasher-tablets",
+    name: "Dishwasher Tablets",
+    brand: "Branch Basics",
+    basisText: "Same founder faith basis as Branch Basics' All-Purpose Concentrate.",
+    basisConfidence: 1,
+    basisSources: [
+      "https://lexiscleankitchen.com/branch-basics-inteview/",
+      "https://www.amazon.com/Branch-Basics-Dishwasher-Tablets-Fragrance-Free/dp/B0GNT5N4SP",
+    ],
+    affiliateUrl: null,
+    affiliateType: "amazon",
+    asin: "B0GNT5N4SP",
+    swapType: "christian",
+    category: "Household & Cleaning",
+    imageUrl: img("Branch Basics Dishwasher Tablets"),
+  },
+  {
+    id: "alt-branch-basics-laundry-powder",
+    slug: "branch-basics-laundry-detergent-powder",
+    name: "Laundry Detergent Powder",
+    brand: "Branch Basics",
+    basisText: "Same founder faith basis as Branch Basics' All-Purpose Concentrate.",
+    basisConfidence: 1,
+    basisSources: ["https://lexiscleankitchen.com/branch-basics-inteview/"],
+    affiliateUrl: null,
+    affiliateType: "amazon",
+    asin: null,
+    swapType: "christian",
+    category: "Household & Cleaning",
+    imageUrl: img("Branch Basics Laundry Powder"),
+  },
+  {
+    id: "alt-branch-basics-bundle",
+    slug: "branch-basics-concentrate-oxygen-boost-bundle",
+    name: "Concentrate (33.8 oz) + Oxygen Boost (4 lbs) Bundle",
+    brand: "Branch Basics",
+    basisText:
+      "Concentrate replaces all-purpose cleaners and can be diluted for surface scrubbing; Oxygen Boost acts as a natural scouring powder and grout cleaner. Sold as a confirmed bundle listing on Amazon. Same founder faith basis as other Branch Basics entries.",
+    basisConfidence: 1,
+    basisSources: ["https://lexiscleankitchen.com/branch-basics-inteview/"],
+    affiliateUrl: null,
+    affiliateType: "amazon",
+    asin: null,
+    swapType: "christian",
+    category: "Household & Cleaning",
+    imageUrl: img("Branch Basics Bundle"),
+  },
+  {
+    id: "alt-toups-co",
+    slug: "toups-and-co-organics",
+    name: "Makeup & Skincare",
+    brand: "Toups & Co. Organics",
+    basisText: "Christian family-owned, confirmed on the company's own About page.",
+    basisConfidence: 1,
+    basisSources: ["https://toupsandco.com/pages/about-us"],
+    affiliateUrl: null,
+    affiliateType: "amazon",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Makeup",
+    imageUrl: img("Toups & Co. Organics"),
+  },
+  {
+    id: "alt-jes-organics",
+    slug: "jes-organics",
+    name: "Makeup, Skincare & Supplements",
+    brand: "JES Organics",
+    basisText:
+      "Own Amazon storefront states \"Christian-based company founded in 2006.\"",
+    basisConfidence: 1,
+    basisSources: [
+      "https://www.amazon.com/stores/JESOrganics/Homepage/page/34BCD59B-5770-4397-84F6-721513DA72D3",
+    ],
+    affiliateUrl: null,
+    affiliateType: "amazon",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Makeup",
+    imageUrl: img("JES Organics"),
+  },
+  {
+    id: "alt-hosanna-aroma",
+    slug: "hosanna-aroma",
+    name: "Christian Fragrance",
+    brand: "Hosanna Aroma",
+    basisText:
+      "Own website states \"unapologetically Christian,\" Scripture-inspired, husband-and-wife team in Colorado, launched April 2024.",
+    basisConfidence: 1,
+    basisSources: ["https://hosanna-aroma.com/"],
+    affiliateUrl: "https://hosanna-aroma.com",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Fragrance",
+    imageUrl: img("Hosanna Aroma"),
+  },
+  {
+    id: "alt-risen-fragrances",
+    slug: "risen-fragrances",
+    name: "Christian Fragrance",
+    brand: "Risen Fragrances",
+    basisText:
+      "\"Exists to glorify God\"; each scent is paired with Scripture, and $1 per bottle funds Bible distribution.",
+    basisConfidence: 1,
+    basisSources: ["https://risenfragrances.com/"],
+    affiliateUrl: "https://risenfragrances.com",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Fragrance",
+    imageUrl: img("Risen Fragrances"),
+  },
+  {
+    id: "alt-leaf-razor",
+    slug: "leaf-razor-chrome",
+    name: "Leaf Razor (All-Metal Safety Razor, Chrome)",
+    brand: "Leaf Shave",
+    basisText:
+      "Clean/non-toxic alternative: all-metal, plastic-free razor with a pivoting head and no toxic shaving-strip chemicals. No Christian-founded claim has been found for Leaf Shave — this is offered as a clean swap, not a faith-based one.",
+    basisConfidence: 1,
+    basisSources: [
+      "https://www.amazon.com/dp/B09QB2Y263",
+      "https://leafshave.com/",
+    ],
+    affiliateUrl: null,
+    affiliateType: "amazon",
+    asin: "B09QB2Y263",
+    swapType: "clean",
+    category: "Beauty & Personal Care",
+    imageUrl: img("Leaf Razor"),
   },
 ];
 
 export const productAlternativeMap: ProductAlternativeMapEntry[] = [
   { productId: "arm-hammer-baking-soda", alternativeId: "alt-bobs-red-mill", rank: "primary" },
 
-  { productId: "dr-bronners-castile-soap", alternativeId: "alt-boll-weevil", rank: "primary" },
+  { productId: "dr-bronners-castile-soap", alternativeId: "alt-boll-weevil-hand-wash", rank: "primary" },
   { productId: "dr-bronners-castile-soap", alternativeId: "alt-faithfully-natural", rank: "secondary" },
   { productId: "dr-bronners-castile-soap", alternativeId: "alt-pure-hearts", rank: "secondary" },
 
-  { productId: "method-shower-readings", alternativeId: "alt-boll-weevil", rank: "primary" },
+  { productId: "method-shower-readings", alternativeId: "alt-boll-weevil-hand-wash", rank: "primary" },
   { productId: "method-shower-readings", alternativeId: "alt-faithfully-natural", rank: "secondary" },
   { productId: "method-shower-readings", alternativeId: "alt-pure-hearts", rank: "secondary" },
 
   { productId: "mr-clean-all-purpose-cleaner", alternativeId: "alt-branch-basics-apc", rank: "primary" },
-  { productId: "ajax-powder-cleanser", alternativeId: "alt-branch-basics-apc", rank: "primary" },
+  { productId: "ajax-powder-cleanser", alternativeId: "alt-branch-basics-bundle", rank: "primary" },
   { productId: "mr-clean-clean-freak-spray", alternativeId: "alt-branch-basics-apc", rank: "primary" },
   { productId: "mr-clean-magic-eraser", alternativeId: "alt-branch-basics-oxygen-boost", rank: "primary" },
   { productId: "seventh-generation-laundry", alternativeId: "alt-branch-basics-laundry", rank: "primary" },
 
-  { productId: "pacifica-aromapower", alternativeId: "alt-boll-weevil", rank: "primary" },
+  { productId: "pacifica-aromapower", alternativeId: "alt-hosanna-aroma", rank: "primary" },
+  { productId: "pacifica-aromapower", alternativeId: "alt-risen-fragrances", rank: "secondary" },
 
   { productId: "yogi-tea-herbal-blend", alternativeId: "alt-palm-beach-tea", rank: "primary" },
 
@@ -575,6 +972,25 @@ export const productAlternativeMap: ProductAlternativeMapEntry[] = [
 
   { productId: "honest-company-baby", alternativeId: "alt-everylife", rank: "primary" },
   { productId: "honest-company-baby", alternativeId: "alt-earth-eden", rank: "secondary" },
+
+  { productId: "arm-hammer-laundry-detergent", alternativeId: "alt-branch-basics-laundry-powder", rank: "primary" },
+
+  { productId: "ajax-dishwasher-pods", alternativeId: "alt-branch-basics-dishwasher-tablets", rank: "primary" },
+  { productId: "seventh-generation-dishwasher-pods", alternativeId: "alt-branch-basics-dishwasher-tablets", rank: "primary" },
+
+  { productId: "nyx-makeup", alternativeId: "alt-toups-co", rank: "primary" },
+  { productId: "nyx-makeup", alternativeId: "alt-jes-organics", rank: "secondary" },
+
+  { productId: "urban-decay-makeup", alternativeId: "alt-toups-co", rank: "primary" },
+  { productId: "urban-decay-makeup", alternativeId: "alt-jes-organics", rank: "secondary" },
+
+  { productId: "moon-juice-supplements", alternativeId: "alt-jes-organics", rank: "primary" },
+  { productId: "moon-juice-supplements", alternativeId: "alt-toups-co", rank: "secondary" },
+
+  { productId: "mugler-angel", alternativeId: "alt-hosanna-aroma", rank: "primary" },
+  { productId: "mugler-angel", alternativeId: "alt-risen-fragrances", rank: "secondary" },
+
+  { productId: "gillette-venus", alternativeId: "alt-leaf-razor", rank: "primary" },
 
   // oatey-hercules-drain-opener intentionally has no alternative yet (per brief notes).
 ];

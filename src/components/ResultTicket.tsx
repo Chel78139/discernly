@@ -1,7 +1,8 @@
 import { ConfidenceBadge } from "./ConfidenceBadge";
 import { SourceLinks } from "./SourceLinks";
 import { EmailUnlockForm } from "./EmailUnlockForm";
-import { buildAffiliateLabel } from "@/lib/affiliate";
+import { ShopButton } from "./ShopButton";
+import { CleanSwapNote } from "./CleanSwapNote";
 import type { Alternative, Association, Product } from "@/types/data";
 
 function ArrowDivider() {
@@ -77,6 +78,7 @@ export function ResultTicket({
               tier={alternative.basisConfidence}
               detail="self-stated by company"
             />
+            {alternative.swapType === "clean" && <CleanSwapNote />}
           </>
         ) : (
           <p className="ticket-note">
@@ -122,26 +124,13 @@ export function ResultTicket({
               : []),
           ]}
         />
-        {alternative &&
-          (locked ? (
-            <div className="flex flex-col items-end gap-1">
-              <button className="buy-btn" disabled>
-                {buildAffiliateLabel(alternative)}
-              </button>
-              <span className="text-[0.68rem]" style={{ color: "#8a7a5f" }}>
-                Unlock above to activate
-              </span>
-            </div>
-          ) : (
-            <a
-              className="buy-btn"
-              href={affiliateUrl ?? "#"}
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-            >
-              {buildAffiliateLabel(alternative)}
-            </a>
-          ))}
+        {alternative && (
+          <ShopButton
+            alternative={alternative}
+            affiliateUrl={affiliateUrl}
+            locked={locked}
+          />
+        )}
       </div>
     </div>
   );

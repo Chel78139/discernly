@@ -45,7 +45,9 @@ export function searchProducts(query: string, limit = 8): Product[] {
   return products
     .filter(
       (p) =>
-        p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q),
+        p.name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        p.aliases?.some((a) => a.toLowerCase().includes(q)),
     )
     .slice(0, limit);
 }
