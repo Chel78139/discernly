@@ -23,6 +23,7 @@
     "csv-parse": "^7.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "png-to-ico": "^3.0.1",
     "tailwindcss": "^4",
     "tsx": "^4.22.4",
     "typescript": "^5"
