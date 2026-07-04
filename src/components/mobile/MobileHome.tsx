@@ -60,13 +60,27 @@ export function MobileHome({
   // transition (including intermediate loading renders) and only release
   // the pin once we've settled on a final view.
   const pinnedScrollY = useRef<number | null>(null);
+  const shellRef = useRef<HTMLDivElement>(null);
   const isLoadingTransition =
     (view === "result" && resultKind === "loading") ||
     (view === "category" && categoryProducts === null);
 
   useLayoutEffect(() => {
     if (pinnedScrollY.current !== null) {
-      window.scrollTo(0, pinnedScrollY.current);
+      // "Browse by category" sits near the bottom of the tall home
+      // screen, but the category/result content that replaces it can be
+      // much shorter — pinning the raw pixel value would then overshoot
+      // past the app shell entirely and land in the shared sections
+      // below it (trust strip, footer). Clamp to the app shell's own
+      // height so we only ever preserve scroll *within* the shell.
+      let target = pinnedScrollY.current;
+      const shell = shellRef.current;
+      if (shell) {
+        const shellBottom = shell.offsetTop + shell.offsetHeight;
+        const maxWithinShell = Math.max(0, shellBottom - window.innerHeight);
+        target = Math.min(target, maxWithinShell);
+      }
+      window.scrollTo(0, target);
       if (!isLoadingTransition) {
         pinnedScrollY.current = null;
       }
@@ -142,7 +156,7 @@ export function MobileHome({
   }
 
   return (
-    <div className="md:hidden min-h-screen flex flex-col px-5 pt-3 pb-28">
+    <div ref={shellRef} className="md:hidden min-h-screen flex flex-col px-5 pt-3 pb-28">
       <MobileToast show={toastShow} />
 
       {/* NAV */}
