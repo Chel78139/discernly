@@ -17,7 +17,7 @@ export default async function Home() {
 
   return (
     <div className="wrap max-w-[1080px] mx-auto px-6 w-full">
-      <MobileHome initialLocked={locked} />
+      <MobileHome initialLocked={locked} categories={categories} />
 
       <div className="hidden md:block">
       <SiteNav />
@@ -158,7 +158,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="browse" className="py-[72px]">
+      <section id="browse" className="hidden md:block py-[72px]">
         <h2 className="font-serif font-medium text-[1.7rem] mb-1.5">
           Browse by category
         </h2>

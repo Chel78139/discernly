@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Logo, Wordmark } from "@/components/Logo";
+import { CategoryGrid } from "@/components/CategoryGrid";
 import { MobileResultView, type MobileResultKind } from "./MobileResultView";
 import { MobileUnlockSheet } from "./MobileUnlockSheet";
 import { MobileStickyCta } from "./MobileStickyCta";
@@ -33,29 +34,40 @@ const RECENT_SWAPS: {
   { fromLabel: "NYX Cosmetics", toLabel: "Toups & Co.", slug: "nyx-makeup" },
 ];
 
-export function MobileHome({ initialLocked }: { initialLocked: boolean }) {
+export function MobileHome({
+  initialLocked,
+  categories,
+}: {
+  initialLocked: boolean;
+  categories: { category: string; count: number }[];
+}) {
   const router = useRouter();
-  const [view, setView] = useState<"home" | "result">("home");
+  const [view, setView] = useState<"home" | "category" | "result">("home");
   const [query, setQuery] = useState("");
   const [resultKind, setResultKind] = useState<MobileResultKind>("loading");
   const [resultData, setResultData] = useState<ProductResult | null>(null);
   const [pickList, setPickList] = useState<Product[]>([]);
+  const [categoryName, setCategoryName] = useState("");
+  const [categoryProducts, setCategoryProducts] = useState<Product[] | null>(null);
   const [locked, setLocked] = useState(initialLocked);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [toastShow, setToastShow] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Swapping home/result content replaces large chunks of the DOM, which
-  // triggers the browser's scroll-anchoring heuristics and can silently
-  // drift the scroll position. Pin it explicitly across the whole
-  // transition (including the intermediate "loading" render) and only
-  // release the pin once we've settled on a final view.
+  // Swapping home/category/result content replaces large chunks of the
+  // DOM, which triggers the browser's scroll-anchoring heuristics and can
+  // silently drift the scroll position. Pin it explicitly across the whole
+  // transition (including intermediate loading renders) and only release
+  // the pin once we've settled on a final view.
   const pinnedScrollY = useRef<number | null>(null);
+  const isLoadingTransition =
+    (view === "result" && resultKind === "loading") ||
+    (view === "category" && categoryProducts === null);
 
   useLayoutEffect(() => {
     if (pinnedScrollY.current !== null) {
       window.scrollTo(0, pinnedScrollY.current);
-      if (!(view === "result" && resultKind === "loading")) {
+      if (!isLoadingTransition) {
         pinnedScrollY.current = null;
       }
     }
@@ -76,6 +88,20 @@ export function MobileHome({ initialLocked }: { initialLocked: boolean }) {
       setResultKind("detail");
     } catch {
       setResultKind("notfound");
+    }
+  }
+
+  async function loadCategory(category: string) {
+    pinnedScrollY.current = window.scrollY;
+    setCategoryName(category);
+    setCategoryProducts(null);
+    setView("category");
+    try {
+      const res = await fetch(`/api/category/${encodeURIComponent(category)}`);
+      const data = await res.json();
+      setCategoryProducts(data.products ?? []);
+    } catch {
+      setCategoryProducts([]);
     }
   }
 
@@ -160,14 +186,17 @@ export function MobileHome({ initialLocked }: { initialLocked: boolean }) {
               minWidth: 180,
             }}
           >
-            <a
-              href="#browse"
-              onClick={() => setMenuOpen(false)}
-              className="px-3 py-2 rounded-lg text-sm"
+            <button
+              type="button"
+              onClick={() => {
+                goHome();
+                setMenuOpen(false);
+              }}
+              className="px-3 py-2 rounded-lg text-sm text-left"
               style={{ color: "var(--parchment)" }}
             >
               Browse
-            </a>
+            </button>
             <a
               href="#trust"
               onClick={() => setMenuOpen(false)}
@@ -294,6 +323,16 @@ export function MobileHome({ initialLocked }: { initialLocked: boolean }) {
               </div>
             ))}
           </div>
+
+          <div className="flex items-center justify-between mb-3 mt-8">
+            <span
+              className="font-mono text-[0.65rem] uppercase tracking-[0.1em]"
+              style={{ color: "var(--sage)" }}
+            >
+              Browse by category
+            </span>
+          </div>
+          <CategoryGrid categories={categories} onSelect={loadCategory} />
         </div>
       ) : (
         <div className="flex flex-col -mx-5">
@@ -320,44 +359,81 @@ export function MobileHome({ initialLocked }: { initialLocked: boolean }) {
                 <path d="M19 12H5M12 5l-7 7 7 7" />
               </svg>
             </button>
-            <div
-              className="flex-1 flex items-center gap-2 rounded-full px-4 py-2.5 text-sm"
-              style={{
-                background: "var(--m-card)",
-                border: "1px solid var(--m-card-border)",
-                color: "var(--parchment)",
-              }}
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--sage)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
+            {view === "category" ? (
+              <span
+                className="font-serif text-base"
+                style={{ color: "var(--parchment)" }}
               >
-                <circle cx="11" cy="11" r="8" />
-                <path d="M21 21l-4.35-4.35" />
-              </svg>
-              <span className="truncate">
-                {resultData
-                  ? `${resultData.product.brand} ${resultData.product.name}`
-                  : query}
+                {categoryName}
               </span>
-            </div>
+            ) : (
+              <div
+                className="flex-1 flex items-center gap-2 rounded-full px-4 py-2.5 text-sm"
+                style={{
+                  background: "var(--m-card)",
+                  border: "1px solid var(--m-card-border)",
+                  color: "var(--parchment)",
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--sage)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="M21 21l-4.35-4.35" />
+                </svg>
+                <span className="truncate">
+                  {resultData
+                    ? `${resultData.product.brand} ${resultData.product.name}`
+                    : query}
+                </span>
+              </div>
+            )}
           </div>
 
-          <MobileResultView
-            kind={resultKind}
-            query={query}
-            result={resultData}
-            pickList={pickList}
-            locked={locked}
-            onPick={loadProduct}
-            onOpenSheet={() => setSheetOpen(true)}
-            onSuggest={() => router.push("/suggest")}
-          />
+          {view === "category" ? (
+            <div className="px-5 space-y-3">
+              {categoryProducts === null ? (
+                <p style={{ color: "var(--sage)" }}>Loading…</p>
+              ) : categoryProducts.length === 0 ? (
+                <p style={{ color: "var(--sage)" }}>
+                  No products in this category yet.
+                </p>
+              ) : (
+                categoryProducts.map((product) => (
+                  <button
+                    key={product.id}
+                    type="button"
+                    onClick={() => loadProduct(product.slug)}
+                    className="m-picklist-item block w-full text-left"
+                  >
+                    <span
+                      className="font-serif text-base"
+                      style={{ color: "var(--parchment)" }}
+                    >
+                      {product.brand} — {product.name}
+                    </span>
+                  </button>
+                ))
+              )}
+            </div>
+          ) : (
+            <MobileResultView
+              kind={resultKind}
+              query={query}
+              result={resultData}
+              pickList={pickList}
+              locked={locked}
+              onPick={loadProduct}
+              onOpenSheet={() => setSheetOpen(true)}
+              onSuggest={() => router.push("/suggest")}
+            />
+          )}
         </div>
       )}
 
