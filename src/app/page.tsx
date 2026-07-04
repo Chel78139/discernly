@@ -1,17 +1,25 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SearchBox } from "@/components/SearchBox";
 import { CategoryGrid } from "@/components/CategoryGrid";
 import { AdSlot } from "@/components/AdSlot";
 import { ConfidenceBadge } from "@/components/ConfidenceBadge";
+import { MobileHome } from "@/components/mobile/MobileHome";
 import { getCategories } from "@/lib/db";
+import { UNLOCK_COOKIE } from "@/lib/unlock";
 
 export default async function Home() {
   const categories = await getCategories();
+  const cookieStore = await cookies();
+  const locked = cookieStore.get(UNLOCK_COOKIE)?.value !== "1";
 
   return (
     <div className="wrap max-w-[1080px] mx-auto px-6 w-full">
+      <MobileHome initialLocked={locked} />
+
+      <div className="hidden md:block">
       <SiteNav />
 
       <header className="pt-[72px] pb-14">
@@ -98,6 +106,7 @@ export default async function Home() {
           </div>
         </div>
       </header>
+      </div>
 
       <section
         id="trust"
