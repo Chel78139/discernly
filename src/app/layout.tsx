@@ -22,6 +22,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://discernly.net"),
   title: "Discernly — Find the story behind what you already use",
   description:
     "Find the documented belief association behind everyday brands, and a Christian-made alternative if you want one.",
