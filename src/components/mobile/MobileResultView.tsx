@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { CleanSwapNote } from "@/components/CleanSwapNote";
-import { tagAmazonUrl } from "@/lib/affiliate";
+import { ShopButton } from "@/components/ShopButton";
+import { tagAmazonUrl, buildAffiliateUrl } from "@/lib/affiliate";
 import type { Product, ProductResult } from "@/types/data";
 
 function MobileSourceLinks({
@@ -162,7 +163,7 @@ export function MobileResultView({
 
   if (!result) return null;
 
-  const { product, association, primaryAlternative } = result;
+  const { product, association, primaryAlternative, secondaryAlternatives } = result;
 
   return (
     <div className="px-5">
@@ -294,6 +295,49 @@ export function MobileResultView({
           ]}
         />
       </div>
+
+      {/* SECONDARY OPTIONS */}
+      {secondaryAlternatives.length > 0 && (
+        <div className="mt-8">
+          <p
+            className="font-mono text-[0.65rem] uppercase tracking-[0.1em] mb-3"
+            style={{ color: "var(--sage)" }}
+          >
+            Other Christian-made options
+          </p>
+          <div className="space-y-3">
+            {secondaryAlternatives.map((alt) => (
+              <div key={alt.id} className="m-secondary-card flex gap-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={alt.imageUrl}
+                  alt={`${alt.brand} ${alt.name}`}
+                  className="flex-shrink-0 rounded-lg"
+                  style={{ width: 64, height: 64, objectFit: "cover" }}
+                />
+                <div className="flex-1 min-w-0">
+                  <div className="font-serif text-base mb-1" style={{ color: "var(--parchment)" }}>
+                    {alt.brand} — {alt.name}
+                  </div>
+                  <p className="m-claim mb-2">{alt.basisText}</p>
+                  {alt.swapType === "clean" && <CleanSwapNote />}
+                  <div className="flex items-center justify-between flex-wrap gap-3 mt-2">
+                    <MobileConfidenceBadge tier={alt.basisConfidence} detail="Self-stated by company" />
+                    <MobileSourceLinks sections={[{ title: "Sources", urls: alt.basisSources }]} />
+                  </div>
+                  <div className="mt-3 flex justify-end">
+                    <ShopButton
+                      alternative={alt}
+                      affiliateUrl={buildAffiliateUrl(alt)}
+                      locked={locked}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -924,6 +924,132 @@ export const alternatives: Alternative[] = [
     category: "Beauty & Personal Care",
     imageUrl: img("Leaf Razor"),
   },
+  {
+    id: "alt-cbc-divine-shine-lip-gloss",
+    slug: "divine-shine-lip-gloss",
+    name: "Divine Shine Lip Gloss",
+    brand: "Christian Beauty Co.",
+    basisText:
+      "Christian Beauty Co. is an explicitly faith-based clean beauty brand. Their own mission statement states faith calls them to a higher standard where skincare is rooted in values that honor both body and spirit.",
+    basisConfidence: 1,
+    basisSources: ["https://www.christianbeautyco.com/discernly"],
+    affiliateUrl:
+      "https://www.christianbeautyco.com/products/divine-shine-lip-gloss-1?sca_ref=11765311.nBjYCINV1gor",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Makeup",
+    imageUrl:
+      "https://www.christianbeautyco.com/cdn/shop/files/Divine_Shine_Lipgloss.png?v=1773108400&width=980",
+  },
+  {
+    id: "alt-cbc-velvet-lips-lipstick",
+    slug: "velvet-lips-matte-lipstick",
+    name: "Velvet Lips Matte Lipstick",
+    brand: "Christian Beauty Co.",
+    basisText:
+      "Christian Beauty Co. is an explicitly faith-based clean beauty brand. Their own mission statement states faith calls them to a higher standard where skincare is rooted in values that honor both body and spirit.",
+    basisConfidence: 1,
+    basisSources: ["https://www.christianbeautyco.com/discernly"],
+    affiliateUrl:
+      "https://www.christianbeautyco.com/products/velvet-lips-matte-lipstick?sca_ref=11765311.nBjYCINV1gor",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Makeup",
+    imageUrl:
+      "https://www.christianbeautyco.com/cdn/shop/files/VelvetLipstickColors.png?v=1774359692&width=1946",
+  },
+  {
+    id: "alt-cbc-tallow-cream-foundation",
+    slug: "tallow-cream-foundation",
+    name: "Tallow Cream Foundation",
+    brand: "Christian Beauty Co.",
+    basisText:
+      "Christian Beauty Co. is an explicitly faith-based clean beauty brand. Their own mission statement states faith calls them to a higher standard where skincare is rooted in values that honor both body and spirit.",
+    basisConfidence: 1,
+    basisSources: ["https://www.christianbeautyco.com/discernly"],
+    affiliateUrl:
+      "https://www.christianbeautyco.com/products/tallow-cream-foundation?sca_ref=11765311.nBjYCINV1gor",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Makeup",
+    imageUrl:
+      "https://www.christianbeautyco.com/cdn/shop/files/TALLOW_CREAM_FOUNDATION.png?v=1765925591&width=1240",
+  },
+  {
+    id: "alt-cbc-lash-stop-mascara",
+    slug: "the-lash-stop-clean-mascara",
+    name: "The Lash Stop Clean Mascara",
+    brand: "Christian Beauty Co.",
+    basisText:
+      "Christian Beauty Co. is an explicitly faith-based clean beauty brand. Their own mission statement states faith calls them to a higher standard where skincare is rooted in values that honor both body and spirit.",
+    basisConfidence: 1,
+    basisSources: ["https://www.christianbeautyco.com/discernly"],
+    affiliateUrl:
+      "https://www.christianbeautyco.com/products/the-lash-stop-clean-mascara-1?sca_ref=11765311.nBjYCINV1gor",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Makeup",
+    imageUrl:
+      "https://www.christianbeautyco.com/cdn/shop/files/TheLashStopMascaraSquare.png?v=1775084184&width=980",
+  },
+  {
+    id: "alt-cbc-tallow-skin-first-foundation",
+    slug: "tallow-skin-first-foundation",
+    name: "Tallow Skin-First Foundation",
+    brand: "Christian Beauty Co.",
+    basisText:
+      "Christian Beauty Co. is an explicitly faith-based clean beauty brand. Their own mission statement states faith calls them to a higher standard where skincare is rooted in values that honor both body and spirit.",
+    basisConfidence: 1,
+    basisSources: ["https://www.christianbeautyco.com/discernly"],
+    affiliateUrl:
+      "https://www.christianbeautyco.com/products/tallow-skin-first-foundation?sca_ref=11765311.nBjYCINV1gor",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Makeup",
+    imageUrl:
+      "https://www.christianbeautyco.com/cdn/shop/files/TallowSkin-FirstFoundation.png?v=1772142676&width=980",
+  },
+  {
+    id: "alt-cbc-wisdom-eau-de-parfum",
+    slug: "wisdom-eau-de-parfum",
+    name: "Wisdom Eau de Parfum",
+    brand: "Christian Beauty Co.",
+    basisText:
+      "Christian Beauty Co. is an explicitly faith-based clean beauty brand. Their own mission statement states faith calls them to a higher standard where skincare is rooted in values that honor both body and spirit.",
+    basisConfidence: 1,
+    basisSources: ["https://www.christianbeautyco.com/discernly"],
+    affiliateUrl:
+      "https://www.christianbeautyco.com/products/wisdom-eau-de-parfum-30ml-1-0-fl-oz?sca_ref=11765311.nBjYCINV1gor",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Fragrance",
+    imageUrl:
+      "https://www.christianbeautyco.com/cdn/shop/files/wisdom1x1.png?v=1780080075&width=1240",
+  },
+  {
+    id: "alt-cbc-divine-healing-moisturizer",
+    slug: "divine-healing-desert-stem-cell-moisturizer",
+    name: "Divine Healing Desert Stem Cell Moisturizer",
+    brand: "Christian Beauty Co.",
+    basisText:
+      "Christian Beauty Co. is an explicitly faith-based clean beauty brand. Their own mission statement states faith calls them to a higher standard where skincare is rooted in values that honor both body and spirit.",
+    basisConfidence: 1,
+    basisSources: ["https://www.christianbeautyco.com/discernly"],
+    affiliateUrl:
+      "https://www.christianbeautyco.com/products/divine-healing-desert-stem-cell-moisturizer?sca_ref=11765311.nBjYCINV1gor",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Makeup",
+    imageUrl:
+      "https://www.christianbeautyco.com/cdn/shop/files/DivineHealing_129371b6-1ec2-4101-a22f-4c1d4b858383.jpg?v=1752242318&width=1946",
+  },
 ];
 
 export const productAlternativeMap: ProductAlternativeMapEntry[] = [
@@ -945,6 +1071,7 @@ export const productAlternativeMap: ProductAlternativeMapEntry[] = [
 
   { productId: "pacifica-aromapower", alternativeId: "alt-hosanna-aroma", rank: "primary" },
   { productId: "pacifica-aromapower", alternativeId: "alt-risen-fragrances", rank: "secondary" },
+  { productId: "pacifica-aromapower", alternativeId: "alt-cbc-wisdom-eau-de-parfum", rank: "secondary" },
 
   { productId: "yogi-tea-herbal-blend", alternativeId: "alt-palm-beach-tea", rank: "primary" },
 
@@ -965,12 +1092,19 @@ export const productAlternativeMap: ProductAlternativeMapEntry[] = [
 
   { productId: "nyx-makeup", alternativeId: "alt-toups-co", rank: "primary" },
   { productId: "nyx-makeup", alternativeId: "alt-jes-organics", rank: "secondary" },
+  { productId: "nyx-makeup", alternativeId: "alt-cbc-divine-shine-lip-gloss", rank: "secondary" },
+  { productId: "nyx-makeup", alternativeId: "alt-cbc-velvet-lips-lipstick", rank: "secondary" },
+  { productId: "nyx-makeup", alternativeId: "alt-cbc-tallow-cream-foundation", rank: "secondary" },
 
   { productId: "urban-decay-makeup", alternativeId: "alt-toups-co", rank: "primary" },
   { productId: "urban-decay-makeup", alternativeId: "alt-jes-organics", rank: "secondary" },
+  { productId: "urban-decay-makeup", alternativeId: "alt-cbc-lash-stop-mascara", rank: "secondary" },
+  { productId: "urban-decay-makeup", alternativeId: "alt-cbc-velvet-lips-lipstick", rank: "secondary" },
+  { productId: "urban-decay-makeup", alternativeId: "alt-cbc-tallow-skin-first-foundation", rank: "secondary" },
 
   { productId: "moon-juice-supplements", alternativeId: "alt-jes-organics", rank: "primary" },
   { productId: "moon-juice-supplements", alternativeId: "alt-toups-co", rank: "secondary" },
+  { productId: "moon-juice-supplements", alternativeId: "alt-cbc-divine-healing-moisturizer", rank: "secondary" },
 
   { productId: "mugler-angel", alternativeId: "alt-hosanna-aroma", rank: "primary" },
   { productId: "mugler-angel", alternativeId: "alt-risen-fragrances", rank: "secondary" },

@@ -63,29 +63,38 @@ export default async function ProductPage({
             {result.secondaryAlternatives.map((alt) => (
               <div
                 key={alt.id}
-                className="rounded-lg p-5"
+                className="rounded-lg p-5 flex gap-4"
                 style={{ background: "var(--parchment)", color: "var(--ink)" }}
               >
-                <div className="ticket-product">
-                  {alt.brand} — {alt.name}
-                </div>
-                <p className="ticket-note">{alt.basisText}</p>
-                {alt.swapType === "clean" && <CleanSwapNote />}
-                <div className="flex items-center justify-between mt-3 flex-wrap gap-3">
-                  <ConfidenceBadge
-                    tier={alt.basisConfidence}
-                    detail="self-stated by company"
-                  />
-                  <SourceLinks
-                    sections={[{ title: "Sources", urls: alt.basisSources }]}
-                  />
-                </div>
-                <div className="mt-4 flex justify-end">
-                  <ShopButton
-                    alternative={alt}
-                    affiliateUrl={buildAffiliateUrl(alt)}
-                    locked={locked}
-                  />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={alt.imageUrl}
+                  alt={`${alt.brand} ${alt.name}`}
+                  className="flex-shrink-0 rounded-md"
+                  style={{ width: 88, height: 88, objectFit: "cover" }}
+                />
+                <div className="flex-1 min-w-0">
+                  <div className="ticket-product">
+                    {alt.brand} — {alt.name}
+                  </div>
+                  <p className="ticket-note">{alt.basisText}</p>
+                  {alt.swapType === "clean" && <CleanSwapNote />}
+                  <div className="flex items-center justify-between mt-3 flex-wrap gap-3">
+                    <ConfidenceBadge
+                      tier={alt.basisConfidence}
+                      detail="self-stated by company"
+                    />
+                    <SourceLinks
+                      sections={[{ title: "Sources", urls: alt.basisSources }]}
+                    />
+                  </div>
+                  <div className="mt-4 flex justify-end">
+                    <ShopButton
+                      alternative={alt}
+                      affiliateUrl={buildAffiliateUrl(alt)}
+                      locked={locked}
+                    />
+                  </div>
                 </div>
               </div>
             ))}

@@ -392,7 +392,8 @@ body {
 .m-from-card,
 .m-to-card,
 .m-picklist-item,
-.m-notfound-card {
+.m-notfound-card,
+.m-secondary-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--m-card-border);
   border-radius: 20px;
