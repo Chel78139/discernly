@@ -7,6 +7,7 @@ import {
   productAlternativeMap,
   products,
 } from "@/data/seed";
+import { searchProductList } from "@/lib/search";
 import type {
   Alternative,
   EmailSignup,
@@ -40,16 +41,7 @@ export function getProductBySlug(slug: string): Product | null {
 }
 
 export function searchProducts(query: string, limit = 8): Product[] {
-  const q = query.trim().toLowerCase();
-  if (!q) return [];
-  return products
-    .filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q) ||
-        p.aliases?.some((a) => a.toLowerCase().includes(q)),
-    )
-    .slice(0, limit);
+  return searchProductList(products, query, limit);
 }
 
 export function getCategories(): { category: string; count: number }[] {

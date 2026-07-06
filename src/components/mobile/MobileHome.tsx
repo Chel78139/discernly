@@ -9,6 +9,7 @@ import { MobileResultView, type MobileResultKind } from "./MobileResultView";
 import { MobileUnlockSheet } from "./MobileUnlockSheet";
 import { MobileStickyCta } from "./MobileStickyCta";
 import { MobileToast } from "./MobileToast";
+import { MobileSearchInput } from "./MobileSearchInput";
 import type { Product, ProductResult } from "@/types/data";
 
 const POPULAR_CHIPS: { label: string; slug: string }[] = [
@@ -99,6 +100,7 @@ export function MobileHome({
       }
       const data = (await res.json()) as ProductResult;
       setResultData(data);
+      setQuery(`${data.product.brand} ${data.product.name}`);
       setResultKind("detail");
     } catch {
       setResultKind("notfound");
@@ -245,30 +247,14 @@ export function MobileHome({
             and a Christian-made swap.
           </p>
 
-          <div className="relative mb-4">
-            <svg
-              className="absolute left-[18px] top-1/2 -translate-y-1/2 pointer-events-none"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#9a8c78"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="M21 21l-4.35-4.35" />
-            </svg>
-            <input
-              className="m-search-bar"
-              type="text"
+          <div className="mb-4">
+            <MobileSearchInput
+              variant="hero"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") runSearch(query);
-              }}
+              onChange={setQuery}
+              onSubmit={runSearch}
+              onPickSuggestion={loadProduct}
               placeholder='Try "Method body wash"'
-              autoComplete="off"
             />
           </div>
 
@@ -381,31 +367,14 @@ export function MobileHome({
                 {categoryName}
               </span>
             ) : (
-              <div
-                className="flex-1 flex items-center gap-2 rounded-full px-4 py-2.5 text-sm"
-                style={{
-                  background: "var(--m-card)",
-                  border: "1px solid var(--m-card-border)",
-                  color: "var(--parchment)",
-                }}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--sage)"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="M21 21l-4.35-4.35" />
-                </svg>
-                <span className="truncate">
-                  {resultData
-                    ? `${resultData.product.brand} ${resultData.product.name}`
-                    : query}
-                </span>
+              <div className="flex-1 min-w-0">
+                <MobileSearchInput
+                  variant="pill"
+                  value={query}
+                  onChange={setQuery}
+                  onSubmit={runSearch}
+                  onPickSuggestion={loadProduct}
+                />
               </div>
             )}
           </div>

@@ -90,6 +90,7 @@ export const products: Product[] = [
       "pacifica aromapower",
       "pacifica fragrance",
       "pacifica crystal perfume",
+      "crystal spray fragrance",
     ],
   },
   {
@@ -222,7 +223,17 @@ export const products: Product[] = [
     brand: "NYX Professional Makeup",
     category: "Beauty & Makeup",
     imageUrl: img("NYX Makeup"),
-    aliases: ["nyx", "nyx makeup", "nyx lipstick", "nyx foundation"],
+    aliases: [
+      "nyx",
+      "nyx makeup",
+      "nyx lipstick",
+      "nyx foundation",
+      "nyx hd",
+      "nyx hd foundation",
+      "hd foundation",
+      "nyx butter gloss",
+      "nyx soft matte lip cream",
+    ],
   },
   {
     id: "urban-decay-makeup",
@@ -237,6 +248,9 @@ export const products: Product[] = [
       "naked palette",
       "urban decay mascara",
       "vice palette",
+      "perversion mascara",
+      "vice lipstick",
+      "stay naked foundation",
     ],
   },
   {
@@ -251,6 +265,8 @@ export const products: Product[] = [
       "moon juice powder",
       "moon juice adaptogen",
       "moon juice beauty dust",
+      "moon juice cosmic cream",
+      "cosmic cream",
     ],
   },
   {
