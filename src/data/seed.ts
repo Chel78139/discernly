@@ -1060,7 +1060,7 @@ export const alternatives: Alternative[] = [
     basisSources: ["https://toupsandco.com/pages/about-us"],
     affiliateUrl: null,
     affiliateType: "amazon",
-    asin: null,
+    asin: "B0FVLNMF93",
     swapType: "christian",
     category: "Beauty & Makeup",
     imageUrl: img("Toups & Co. Organics"),
