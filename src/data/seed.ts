@@ -957,7 +957,7 @@ export const alternatives: Alternative[] = [
     basisSources: ["https://palmbeachherbalteas.com/pages/our-story"],
     affiliateUrl: null,
     affiliateType: "amazon",
-    asin: null,
+    asin: "B07M75ZTDZ",
     swapType: "christian",
     category: "Food & Beverage",
     imageUrl: img("Palm Beach Herbal Tea"),
