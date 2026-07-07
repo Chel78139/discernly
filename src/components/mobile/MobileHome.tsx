@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Logo, Wordmark } from "@/components/Logo";
 import { CategoryGrid } from "@/components/CategoryGrid";
 import { MobileResultView, type MobileResultKind } from "./MobileResultView";
@@ -38,18 +38,39 @@ const RECENT_SWAPS: {
 export function MobileHome({
   initialLocked,
   categories,
+  initialView = "home",
+  initialResult = null,
+  initialCategoryName = "",
+  initialCategoryProducts = null,
 }: {
   initialLocked: boolean;
   categories: { category: string; count: number }[];
+  // Lets a direct/refreshed/back-forward-restored load of /product/[slug]
+  // or /category/[category] boot straight into that view instead of always
+  // starting on "home" — those routes render this component too (see
+  // src/app/product/[slug]/page.tsx, src/app/category/[category]/page.tsx)
+  // so a real browser navigation to them still shows the mobile shell
+  // rather than falling through to the desktop-only tree.
+  initialView?: "home" | "category" | "result";
+  initialResult?: ProductResult | null;
+  initialCategoryName?: string;
+  initialCategoryProducts?: Product[] | null;
 }) {
   const router = useRouter();
-  const [view, setView] = useState<"home" | "category" | "result">("home");
-  const [query, setQuery] = useState("");
-  const [resultKind, setResultKind] = useState<MobileResultKind>("loading");
-  const [resultData, setResultData] = useState<ProductResult | null>(null);
+  const pathname = usePathname();
+  const [view, setView] = useState<"home" | "category" | "result">(initialView);
+  const [query, setQuery] = useState(
+    initialResult ? `${initialResult.product.brand} ${initialResult.product.name}` : "",
+  );
+  const [resultKind, setResultKind] = useState<MobileResultKind>(
+    initialResult ? "detail" : "loading",
+  );
+  const [resultData, setResultData] = useState<ProductResult | null>(initialResult);
   const [pickList, setPickList] = useState<Product[]>([]);
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryProducts, setCategoryProducts] = useState<Product[] | null>(null);
+  const [categoryName, setCategoryName] = useState(initialCategoryName);
+  const [categoryProducts, setCategoryProducts] = useState<Product[] | null>(
+    initialCategoryProducts,
+  );
   const [locked, setLocked] = useState(initialLocked);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [toastShow, setToastShow] = useState(false);
@@ -146,6 +167,14 @@ export function MobileHome({
   }
 
   function goHome() {
+    // On /product/[slug] or /category/[category] this shell was booted
+    // straight into that view (see initialView above) — flipping local
+    // state alone would leave the address bar pointing at a URL that no
+    // longer matches what's on screen, so do a real navigation instead.
+    if (pathname !== "/") {
+      router.push("/");
+      return;
+    }
     pinnedScrollY.current = window.scrollY;
     setView("home");
   }

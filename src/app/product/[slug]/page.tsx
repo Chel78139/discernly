@@ -7,7 +7,8 @@ import { SearchBox } from "@/components/SearchBox";
 import { AdSlot } from "@/components/AdSlot";
 import { ResultTicket } from "@/components/ResultTicket";
 import { AlsoConsider } from "@/components/AlsoConsider";
-import { getProductResult } from "@/lib/db";
+import { MobileHome } from "@/components/mobile/MobileHome";
+import { getProductResult, getCategories } from "@/lib/db";
 import { buildAffiliateUrl } from "@/lib/affiliate";
 import { UNLOCK_COOKIE } from "@/lib/unlock";
 
@@ -22,6 +23,7 @@ export default async function ProductPage({
 
   const cookieStore = await cookies();
   const locked = cookieStore.get(UNLOCK_COOKIE)?.value !== "1";
+  const categories = await getCategories();
 
   const affiliateUrl = result.primaryAlternative
     ? buildAffiliateUrl(result.primaryAlternative)
@@ -29,6 +31,18 @@ export default async function ProductPage({
 
   return (
     <div className="wrap max-w-[1080px] mx-auto px-6 w-full">
+      {/* Real navigation (Safari back/forward, bfcache restore, a shared
+          link, a refresh) can land here directly — this route needs its
+          own mobile shell, not just "/", or those cases fall through to
+          the desktop-only tree below regardless of viewport. */}
+      <MobileHome
+        initialLocked={locked}
+        categories={categories}
+        initialView="result"
+        initialResult={result}
+      />
+
+      <div className="hidden md:block">
       <SiteNav />
 
       <div className="pt-14">
@@ -62,6 +76,7 @@ export default async function ProductPage({
       </div>
 
       <SiteFooter />
+      </div>
     </div>
   );
 }

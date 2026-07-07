@@ -1,9 +1,12 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { AdSlot } from "@/components/AdSlot";
-import { getProductsByCategory } from "@/lib/db";
+import { MobileHome } from "@/components/mobile/MobileHome";
+import { getProductsByCategory, getCategories } from "@/lib/db";
+import { UNLOCK_COOKIE } from "@/lib/unlock";
 
 export default async function CategoryPage({
   params,
@@ -16,8 +19,25 @@ export default async function CategoryPage({
 
   if (products.length === 0) notFound();
 
+  const cookieStore = await cookies();
+  const locked = cookieStore.get(UNLOCK_COOKIE)?.value !== "1";
+  const categories = await getCategories();
+
   return (
     <div className="wrap max-w-[1080px] mx-auto px-6 w-full">
+      {/* Real navigation (Safari back/forward, bfcache restore, a shared
+          link, a refresh) can land here directly — this route needs its
+          own mobile shell, not just "/", or those cases fall through to
+          the desktop-only tree below regardless of viewport. */}
+      <MobileHome
+        initialLocked={locked}
+        categories={categories}
+        initialView="category"
+        initialCategoryName={category}
+        initialCategoryProducts={products}
+      />
+
+      <div className="hidden md:block">
       <SiteNav />
 
       <div className="pt-14 pb-8">
@@ -54,6 +74,7 @@ export default async function CategoryPage({
       </div>
 
       <SiteFooter />
+      </div>
     </div>
   );
 }
