@@ -17,6 +17,7 @@ interface ProductRow {
   brand: string;
   category: string;
   image_url: string;
+  level: Product["level"];
   aliases: string[] | null;
 }
 
@@ -59,6 +60,7 @@ function toProduct(row: ProductRow): Product {
     brand: row.brand,
     category: row.category,
     imageUrl: row.image_url,
+    level: row.level,
     aliases: row.aliases ?? undefined,
   };
 }

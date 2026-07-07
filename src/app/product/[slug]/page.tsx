@@ -6,10 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SearchBox } from "@/components/SearchBox";
 import { AdSlot } from "@/components/AdSlot";
 import { ResultTicket } from "@/components/ResultTicket";
-import { ConfidenceBadge } from "@/components/ConfidenceBadge";
-import { SourceLinks } from "@/components/SourceLinks";
-import { ShopButton } from "@/components/ShopButton";
-import { CleanSwapNote } from "@/components/CleanSwapNote";
+import { AlsoConsider } from "@/components/AlsoConsider";
 import { getProductResult } from "@/lib/db";
 import { buildAffiliateUrl } from "@/lib/affiliate";
 import { UNLOCK_COOKIE } from "@/lib/unlock";
@@ -54,53 +51,11 @@ export default async function ProductPage({
         </Link>
       </p>
 
-      {result.secondaryAlternatives.length > 0 && (
-        <section className="mt-16 max-w-[720px]">
-          <h2 className="font-serif font-medium text-[1.4rem] mb-4">
-            Other Christian-made options
-          </h2>
-          <div className="space-y-4">
-            {result.secondaryAlternatives.map((alt) => (
-              <div
-                key={alt.id}
-                className="rounded-lg p-5 flex gap-4"
-                style={{ background: "var(--parchment)", color: "var(--ink)" }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={alt.imageUrl}
-                  alt={`${alt.brand} ${alt.name}`}
-                  className="flex-shrink-0 rounded-md"
-                  style={{ width: 88, height: 88, objectFit: "cover" }}
-                />
-                <div className="flex-1 min-w-0">
-                  <div className="ticket-product">
-                    {alt.brand} — {alt.name}
-                  </div>
-                  <p className="ticket-note">{alt.basisText}</p>
-                  {alt.swapType === "clean" && <CleanSwapNote />}
-                  <div className="flex items-center justify-between mt-3 flex-wrap gap-3">
-                    <ConfidenceBadge
-                      tier={alt.basisConfidence}
-                      detail="self-stated by company"
-                    />
-                    <SourceLinks
-                      sections={[{ title: "Sources", urls: alt.basisSources }]}
-                    />
-                  </div>
-                  <div className="mt-4 flex justify-end">
-                    <ShopButton
-                      alternative={alt}
-                      affiliateUrl={buildAffiliateUrl(alt)}
-                      locked={locked}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      <AlsoConsider
+        alternatives={result.secondaryAlternatives}
+        locked={locked}
+        category={result.product.category}
+      />
 
       <div className="my-16">
         <AdSlot />

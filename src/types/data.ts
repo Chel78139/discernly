@@ -7,6 +7,12 @@ export type AffiliateType = "amazon" | "direct" | "unconfirmed";
 // as a clean/non-toxic swap instead, labeled accordingly in the UI.
 export type SwapType = "christian" | "clean";
 
+// "brand" = the whole brand/product line is flagged (e.g. searching "NYX"
+// shows one overall Christian-made brand as the primary swap).
+// "product" = a specific SKU is flagged (e.g. "NYX HD Foundation") with
+// its own specific product-level primary swap and direct affiliate link.
+export type ProductLevel = "brand" | "product";
+
 export interface Product {
   id: string;
   slug: string;
@@ -14,6 +20,7 @@ export interface Product {
   brand: string;
   category: string;
   imageUrl: string;
+  level: ProductLevel;
   // Extra search terms (misspellings, product line names, "&" vs "and")
   // that should also resolve to this product.
   aliases?: string[];

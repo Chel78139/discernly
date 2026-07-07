@@ -36,14 +36,14 @@ const lines: string[] = [
   "-- email_signups or suggestions, which hold real user data.",
   "truncate table product_alternative_map, associations, alternatives, products cascade;",
   "",
-  "insert into products (id, slug, name, brand, category, image_url, aliases) values",
+  "insert into products (id, slug, name, brand, category, image_url, level, aliases) values",
 ];
 
 lines.push(
   products
     .map((p, i) => {
       const id = productIdMap.get(p.id)!;
-      const row = `  (${sqlString(id)}, ${sqlString(p.slug)}, ${sqlString(p.name)}, ${sqlString(p.brand)}, ${sqlString(p.category)}, ${sqlString(p.imageUrl)}, ${sqlArray(p.aliases ?? [])})`;
+      const row = `  (${sqlString(id)}, ${sqlString(p.slug)}, ${sqlString(p.name)}, ${sqlString(p.brand)}, ${sqlString(p.category)}, ${sqlString(p.imageUrl)}, ${sqlString(p.level)}, ${sqlArray(p.aliases ?? [])})`;
       return row + (i === products.length - 1 ? ";" : ",");
     })
     .join("\n"),

@@ -1,10 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { CleanSwapNote } from "@/components/CleanSwapNote";
 import { ShopButton } from "@/components/ShopButton";
 import { tagAmazonUrl, buildAffiliateUrl } from "@/lib/affiliate";
 import type { Product, ProductResult } from "@/types/data";
+
+// The result card stays clean forever: cap what's shown here regardless of
+// how large the catalog gets. Anything beyond the cap links out to the
+// category page instead of growing this section.
+const SECONDARY_CAP = 3;
 
 function MobileSourceLinks({
   sections,
@@ -107,6 +113,8 @@ export function MobileResultView({
   onOpenSheet: () => void;
   onSuggest: () => void;
 }) {
+  const [secondaryOpen, setSecondaryOpen] = useState(false);
+
   if (kind === "loading") {
     return (
       <div className="px-5 py-10 text-center" style={{ color: "var(--sage)" }}>
@@ -164,6 +172,8 @@ export function MobileResultView({
   if (!result) return null;
 
   const { product, association, primaryAlternative, secondaryAlternatives } = result;
+  const shownSecondary = secondaryAlternatives.slice(0, SECONDARY_CAP);
+  const overflow = secondaryAlternatives.length - shownSecondary.length;
 
   return (
     <div className="px-5">
@@ -296,46 +306,89 @@ export function MobileResultView({
         />
       </div>
 
-      {/* SECONDARY OPTIONS */}
+      {/* SECONDARY OPTIONS: collapsed pill row by default, tap to expand */}
       {secondaryAlternatives.length > 0 && (
-        <div className="mt-8">
-          <p
-            className="font-mono text-[0.65rem] uppercase tracking-[0.1em] mb-3"
-            style={{ color: "var(--sage)" }}
+        <div
+          className="mt-8 pt-5"
+          style={{ borderTop: "1px solid var(--m-card-border)" }}
+        >
+          <button
+            type="button"
+            onClick={() => setSecondaryOpen((v) => !v)}
+            className="flex items-center gap-3"
+            aria-expanded={secondaryOpen}
           >
-            Other Christian-made options
-          </p>
-          <div className="space-y-3">
-            {secondaryAlternatives.map((alt) => (
-              <div key={alt.id} className="m-secondary-card flex gap-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+            <span
+              className="font-mono text-[0.65rem] uppercase tracking-[0.1em]"
+              style={{ color: "var(--sage)" }}
+            >
+              Also consider
+            </span>
+            <span className="flex -space-x-2">
+              {shownSecondary.map((alt) => (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
+                  key={alt.id}
                   src={alt.imageUrl}
-                  alt={`${alt.brand} ${alt.name}`}
-                  className="flex-shrink-0 rounded-lg"
-                  style={{ width: 64, height: 64, objectFit: "cover" }}
+                  alt=""
+                  className="rounded-full"
+                  style={{
+                    width: 26,
+                    height: 26,
+                    objectFit: "cover",
+                    border: "2px solid var(--ground)",
+                  }}
                 />
-                <div className="flex-1 min-w-0">
-                  <div className="font-serif text-base mb-1" style={{ color: "var(--parchment)" }}>
-                    {alt.brand} — {alt.name}
-                  </div>
-                  <p className="m-claim mb-2">{alt.basisText}</p>
-                  {alt.swapType === "clean" && <CleanSwapNote />}
-                  <div className="flex items-center justify-between flex-wrap gap-3 mt-2">
-                    <MobileConfidenceBadge tier={alt.basisConfidence} detail="Self-stated by company" />
-                    <MobileSourceLinks sections={[{ title: "Sources", urls: alt.basisSources }]} />
-                  </div>
-                  <div className="mt-3 flex justify-end">
-                    <ShopButton
-                      alternative={alt}
-                      affiliateUrl={buildAffiliateUrl(alt)}
-                      locked={locked}
-                    />
+              ))}
+            </span>
+            <span className="text-[0.8rem] underline" style={{ color: "var(--gold)" }}>
+              {secondaryOpen ? "Hide" : "See options"}
+            </span>
+          </button>
+
+          {secondaryOpen && (
+            <div className="space-y-3 mt-4">
+              {shownSecondary.map((alt) => (
+                <div key={alt.id} className="m-secondary-card flex gap-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={alt.imageUrl}
+                    alt={`${alt.brand} ${alt.name}`}
+                    className="flex-shrink-0 rounded-lg"
+                    style={{ width: 64, height: 64, objectFit: "cover" }}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="font-serif text-base mb-1" style={{ color: "var(--parchment)" }}>
+                      {alt.brand} — {alt.name}
+                    </div>
+                    <p className="m-claim mb-2">{alt.basisText}</p>
+                    {alt.swapType === "clean" && <CleanSwapNote />}
+                    <div className="flex items-center justify-between flex-wrap gap-3 mt-2">
+                      <MobileConfidenceBadge tier={alt.basisConfidence} detail="Self-stated by company" />
+                      <MobileSourceLinks sections={[{ title: "Sources", urls: alt.basisSources }]} />
+                    </div>
+                    <div className="mt-3 flex justify-end">
+                      <ShopButton
+                        alternative={alt}
+                        affiliateUrl={buildAffiliateUrl(alt)}
+                        locked={locked}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+              {overflow > 0 && (
+                <Link
+                  href={`/category/${encodeURIComponent(product.category)}`}
+                  className="text-[0.8rem] underline block"
+                  style={{ color: "var(--sage)" }}
+                >
+                  +{overflow} more option{overflow === 1 ? "" : "s"} — browse{" "}
+                  {product.category} →
+                </Link>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>
