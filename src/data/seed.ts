@@ -382,6 +382,112 @@ export const products: Product[] = [
     level: "product",
     aliases: ["moon juice cosmic cream", "moon juice moisturizer", "moon juice cream"],
   },
+  {
+    id: "dr-bronners-unscented-soap",
+    slug: "dr-bronners-unscented-soap",
+    name: "Unscented Pure-Castile Soap",
+    brand: "Dr. Bronner's",
+    category: "Soap & Body",
+    imageUrl: img("Dr. Bronner's Unscented Castile Soap"),
+    level: "product",
+    aliases: [
+      "dr bronner unscented",
+      "dr bronners unscented soap",
+      "dr bronner baby unscented",
+      "castile soap unscented",
+    ],
+  },
+  {
+    id: "dr-bronners-lavender-soap",
+    slug: "dr-bronners-lavender-soap",
+    name: "Lavender Pure-Castile Soap",
+    brand: "Dr. Bronner's",
+    category: "Soap & Body",
+    imageUrl: img("Dr. Bronner's Lavender Castile Soap"),
+    level: "product",
+    aliases: ["dr bronner lavender", "dr bronners lavender soap", "castile soap lavender"],
+  },
+  {
+    id: "dr-bronners-tea-tree-soap",
+    slug: "dr-bronners-tea-tree-soap",
+    name: "Tea Tree Pure-Castile Soap",
+    brand: "Dr. Bronner's",
+    category: "Soap & Body",
+    imageUrl: img("Dr. Bronner's Tea Tree Castile Soap"),
+    level: "product",
+    aliases: [
+      "dr bronner tea tree",
+      "dr bronners tea tree soap",
+      "castile soap tea tree",
+      "dr bronner acne",
+    ],
+  },
+  {
+    id: "dr-bronners-eucalyptus-soap",
+    slug: "dr-bronners-eucalyptus-soap",
+    name: "Eucalyptus Pure-Castile Soap",
+    brand: "Dr. Bronner's",
+    category: "Soap & Body",
+    imageUrl: img("Dr. Bronner's Eucalyptus Castile Soap"),
+    level: "product",
+    aliases: [
+      "dr bronner eucalyptus",
+      "dr bronners eucalyptus soap",
+      "castile soap eucalyptus",
+    ],
+  },
+  {
+    id: "dr-bronners-citrus-soap",
+    slug: "dr-bronners-citrus-soap",
+    name: "Citrus Pure-Castile Soap",
+    brand: "Dr. Bronner's",
+    category: "Soap & Body",
+    imageUrl: img("Dr. Bronner's Citrus Castile Soap"),
+    level: "product",
+    aliases: [
+      "dr bronner citrus",
+      "dr bronners orange soap",
+      "dr bronner lemon",
+      "castile soap citrus",
+    ],
+  },
+  {
+    id: "dr-bronners-castile-shampoo",
+    slug: "dr-bronners-castile-shampoo",
+    name: "Castile Shampoo",
+    brand: "Dr. Bronner's",
+    category: "Soap & Body",
+    imageUrl: img("Dr. Bronner's Castile Shampoo"),
+    level: "product",
+    aliases: [
+      "dr bronner shampoo",
+      "dr bronners shampoo",
+      "castile shampoo",
+      "dr bronner hair",
+      "dr bronner peppermint shampoo",
+    ],
+  },
+  {
+    id: "old-spice-krakengard-deodorant",
+    slug: "old-spice-krakengard-deodorant",
+    name: "Wild Collection — Krakengard Deodorant",
+    brand: "Old Spice",
+    category: "Beauty & Personal Care",
+    imageUrl: img("Old Spice Krakengard Deodorant"),
+    level: "product",
+    aliases: [
+      "old spice krakengard",
+      "old spice wild collection",
+      "old spice krakengard deodorant",
+      "krakengard deodorant",
+      "old spice wolfthorn",
+      "old spice raptorstrike",
+      "old spice dragonblast",
+      "old spice unscented",
+      "old spice sensitive",
+      "old spice deodorant unscented",
+    ],
+  },
 ];
 
 export const associations: Association[] = [
@@ -786,6 +892,103 @@ export const associations: Association[] = [
     ],
     confidenceTier: 1,
     themeTag: "astrology-crystal-energy",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-dr-bronners-unscented-soap",
+    productId: "dr-bronners-unscented-soap",
+    claimText:
+      "Founder Emanuel Bronner built the brand around a universalist \"All-One-God-Faith\" philosophy explicitly blending Judaism, Islam, and Christianity, not centered on Christianity specifically.",
+    sourceUrls: [
+      "https://www.ucpress.edu/blog-posts/how-californias-dr-bronners-spiritual-messaging-became-a-global-brand",
+      "https://en.wikipedia.org/wiki/Emanuel_Bronner",
+      "https://info.drbronner.com/all-one-blog/2016/11/whole-crazy-trip-started/",
+    ],
+    confidenceTier: 1,
+    themeTag: "universalist-syncretism",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-dr-bronners-lavender-soap",
+    productId: "dr-bronners-lavender-soap",
+    claimText:
+      "Founder Emanuel Bronner built the brand around a universalist \"All-One-God-Faith\" philosophy explicitly blending Judaism, Islam, and Christianity, not centered on Christianity specifically.",
+    sourceUrls: [
+      "https://www.ucpress.edu/blog-posts/how-californias-dr-bronners-spiritual-messaging-became-a-global-brand",
+      "https://en.wikipedia.org/wiki/Emanuel_Bronner",
+      "https://info.drbronner.com/all-one-blog/2016/11/whole-crazy-trip-started/",
+    ],
+    confidenceTier: 1,
+    themeTag: "universalist-syncretism",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-dr-bronners-tea-tree-soap",
+    productId: "dr-bronners-tea-tree-soap",
+    claimText:
+      "Founder Emanuel Bronner built the brand around a universalist \"All-One-God-Faith\" philosophy explicitly blending Judaism, Islam, and Christianity, not centered on Christianity specifically.",
+    sourceUrls: [
+      "https://www.ucpress.edu/blog-posts/how-californias-dr-bronners-spiritual-messaging-became-a-global-brand",
+      "https://en.wikipedia.org/wiki/Emanuel_Bronner",
+      "https://info.drbronner.com/all-one-blog/2016/11/whole-crazy-trip-started/",
+    ],
+    confidenceTier: 1,
+    themeTag: "universalist-syncretism",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-dr-bronners-eucalyptus-soap",
+    productId: "dr-bronners-eucalyptus-soap",
+    claimText:
+      "Founder Emanuel Bronner built the brand around a universalist \"All-One-God-Faith\" philosophy explicitly blending Judaism, Islam, and Christianity, not centered on Christianity specifically.",
+    sourceUrls: [
+      "https://www.ucpress.edu/blog-posts/how-californias-dr-bronners-spiritual-messaging-became-a-global-brand",
+      "https://en.wikipedia.org/wiki/Emanuel_Bronner",
+      "https://info.drbronner.com/all-one-blog/2016/11/whole-crazy-trip-started/",
+    ],
+    confidenceTier: 1,
+    themeTag: "universalist-syncretism",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-dr-bronners-citrus-soap",
+    productId: "dr-bronners-citrus-soap",
+    claimText:
+      "Founder Emanuel Bronner built the brand around a universalist \"All-One-God-Faith\" philosophy explicitly blending Judaism, Islam, and Christianity, not centered on Christianity specifically.",
+    sourceUrls: [
+      "https://www.ucpress.edu/blog-posts/how-californias-dr-bronners-spiritual-messaging-became-a-global-brand",
+      "https://en.wikipedia.org/wiki/Emanuel_Bronner",
+      "https://info.drbronner.com/all-one-blog/2016/11/whole-crazy-trip-started/",
+    ],
+    confidenceTier: 1,
+    themeTag: "universalist-syncretism",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-dr-bronners-castile-shampoo",
+    productId: "dr-bronners-castile-shampoo",
+    claimText:
+      "Founder Emanuel Bronner built the brand around a universalist \"All-One-God-Faith\" philosophy explicitly blending Judaism, Islam, and Christianity, not centered on Christianity specifically. Dr. Bronner's Castile Shampoo is made under the same brand and founder philosophy as the bar and liquid castile soaps.",
+    sourceUrls: [
+      "https://www.ucpress.edu/blog-posts/how-californias-dr-bronners-spiritual-messaging-became-a-global-brand",
+      "https://en.wikipedia.org/wiki/Emanuel_Bronner",
+      "https://info.drbronner.com/all-one-blog/2016/11/whole-crazy-trip-started/",
+    ],
+    confidenceTier: 1,
+    themeTag: "universalist-syncretism",
+    dateChecked: DATE_CHECKED_UPDATE,
+  },
+  {
+    id: "assoc-old-spice-krakengard-deodorant",
+    productId: "old-spice-krakengard-deodorant",
+    claimText:
+      "Old Spice's Wild Collection product line is specifically named after mythological and fantasy creatures. The Krakengard product is named after the Kraken from Norse mythology. Old Spice's own product page states \"The first rule of the kraken is, Shhh, don't tell anyone how good I smell.\" Other products in the same line include Wolfthorn, Raptorstrike, and Dragonblast. This entry is scoped to the Wild Collection specifically, not all Old Spice products.",
+    sourceUrls: [
+      "https://oldspice.com/shop-at-retailers/old-spice-antiperspirant-and-deodorant-for-men-krakengard-2-6-oz/",
+      "https://www.amazon.com/dp/B06X1BV9CL",
+    ],
+    confidenceTier: 1,
+    themeTag: "mythological-creatures",
     dateChecked: DATE_CHECKED_UPDATE,
   },
 ];
@@ -1260,6 +1463,150 @@ export const alternatives: Alternative[] = [
     imageUrl:
       "https://www.christianbeautyco.com/cdn/shop/files/DivineHealing_129371b6-1ec2-4101-a22f-4c1d4b858383.jpg?v=1752242318&width=1946",
   },
+  {
+    id: "alt-faithfully-natural-original-remix",
+    slug: "faithfully-natural-original-remix",
+    name: "Original Remix Bar",
+    brand: "Faithfully Natural Soap Co.",
+    basisText:
+      "Faithfully Natural Soap Co. is an explicitly Christian-owned family business. Their own About page states \"we started Faithfully Natural out of a desire to honor God in the way we care for our bodies and steward His creation.\"",
+    basisConfidence: 1,
+    basisSources: ["https://faithfullynaturalsoapco.com/pages/about-us"],
+    affiliateUrl:
+      "https://faithfullynaturalsoapco.com/products/original-remix?sca_ref=11781009.vhEdmqEWQH570GWc",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Soap & Body",
+    imageUrl:
+      "https://faithfullynaturalsoapco.com/cdn/shop/files/IMG-5023.jpg?v=1707180865&width=1346",
+  },
+  {
+    id: "alt-faithfully-natural-garden-bar",
+    slug: "faithfully-natural-garden-bar",
+    name: "Garden Bar",
+    brand: "Faithfully Natural Soap Co.",
+    basisText:
+      "Faithfully Natural Soap Co. is an explicitly Christian-owned family business. Their own About page states \"we started Faithfully Natural out of a desire to honor God in the way we care for our bodies and steward His creation.\"",
+    basisConfidence: 1,
+    basisSources: ["https://faithfullynaturalsoapco.com/pages/about-us"],
+    affiliateUrl:
+      "https://faithfullynaturalsoapco.com/products/garden-bar?sca_ref=11781009.vhEdmqEWQH570GWc",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Soap & Body",
+    imageUrl:
+      "https://faithfullynaturalsoapco.com/cdn/shop/files/E2339098-6795-461E-AF54-9D2EE5A08747.jpg?v=1707187858&width=1346",
+  },
+  {
+    id: "alt-faithfully-natural-the-cure-bar",
+    slug: "faithfully-natural-the-cure-bar",
+    name: "The Cure Bar",
+    brand: "Faithfully Natural Soap Co.",
+    basisText:
+      "Faithfully Natural Soap Co. is an explicitly Christian-owned family business. Their own About page states \"we started Faithfully Natural out of a desire to honor God in the way we care for our bodies and steward His creation.\"",
+    basisConfidence: 1,
+    basisSources: ["https://faithfullynaturalsoapco.com/pages/about-us"],
+    affiliateUrl:
+      "https://faithfullynaturalsoapco.com/products/the-cure-magnesium-bar?sca_ref=11781009.vhEdmqEWQH570GWc",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Soap & Body",
+    imageUrl:
+      "https://faithfullynaturalsoapco.com/cdn/shop/files/IMG-2054.jpg?v=1733428626&width=1346",
+  },
+  {
+    id: "alt-faithfully-natural-lifechanger",
+    slug: "faithfully-natural-lifechanger",
+    name: "Lifechanger Bar",
+    brand: "Faithfully Natural Soap Co.",
+    basisText:
+      "Faithfully Natural Soap Co. is an explicitly Christian-owned family business. Their own About page states \"we started Faithfully Natural out of a desire to honor God in the way we care for our bodies and steward His creation.\"",
+    basisConfidence: 1,
+    basisSources: ["https://faithfullynaturalsoapco.com/pages/about-us"],
+    affiliateUrl:
+      "https://faithfullynaturalsoapco.com/products/lifechanger?sca_ref=11781009.vhEdmqEWQH570GWc",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Soap & Body",
+    imageUrl:
+      "https://faithfullynaturalsoapco.com/cdn/shop/files/0BBEE634-3427-4AC1-A2EF-38F31A71DFCE.jpg?v=1707187783&width=1346",
+  },
+  {
+    id: "alt-faithfully-natural-citrus-blast",
+    slug: "faithfully-natural-citrus-blast",
+    name: "Citrus Blast Bar",
+    brand: "Faithfully Natural Soap Co.",
+    basisText:
+      "Faithfully Natural Soap Co. is an explicitly Christian-owned family business. Their own About page states \"we started Faithfully Natural out of a desire to honor God in the way we care for our bodies and steward His creation.\"",
+    basisConfidence: 1,
+    basisSources: ["https://faithfullynaturalsoapco.com/pages/about-us"],
+    affiliateUrl:
+      "https://faithfullynaturalsoapco.com/products/citrus-blast?sca_ref=11781009.vhEdmqEWQH570GWc",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Soap & Body",
+    imageUrl:
+      "https://faithfullynaturalsoapco.com/cdn/shop/files/4345C893-78EF-4125-B2DD-26AF6B077799.jpg?v=1707188012&width=1346",
+  },
+  {
+    id: "alt-faithfully-natural-deodorant-lemon-tea-tree",
+    slug: "faithfully-natural-deodorant-lemon-tea-tree",
+    name: "Natural Deodorant (Lemon & Tea Tree)",
+    brand: "Faithfully Natural Soap Co.",
+    basisText:
+      "Faithfully Natural Soap Co. is an explicitly Christian-owned family business. Their own About page states \"we started Faithfully Natural out of a desire to honor God in the way we care for our bodies and steward His creation.\"",
+    basisConfidence: 1,
+    basisSources: ["https://faithfullynaturalsoapco.com/pages/about-us"],
+    affiliateUrl:
+      "https://faithfullynaturalsoapco.com/products/deodorant?sca_ref=11781009.vhEdmqEWQH570GWc",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Personal Care",
+    imageUrl:
+      "https://faithfullynaturalsoapco.com/cdn/shop/files/03A87A68-5C54-4615-A373-32419E4A93CB.jpg?v=1726070619&width=1346",
+  },
+  {
+    id: "alt-faithfully-natural-deodorant-unscented",
+    slug: "faithfully-natural-deodorant-unscented",
+    name: "Unscented Natural Deodorant",
+    brand: "Faithfully Natural Soap Co.",
+    basisText:
+      "Faithfully Natural Soap Co. is an explicitly Christian-owned family business. Their own About page states \"we started Faithfully Natural out of a desire to honor God in the way we care for our bodies and steward His creation.\"",
+    basisConfidence: 1,
+    basisSources: ["https://faithfullynaturalsoapco.com/pages/about-us"],
+    affiliateUrl:
+      "https://faithfullynaturalsoapco.com/products/unscented?sca_ref=11781009.vhEdmqEWQH570GWc",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Beauty & Personal Care",
+    imageUrl:
+      "https://faithfullynaturalsoapco.com/cdn/shop/files/72B787D1-75E4-4A24-B5F7-D54DDC86A5B9.jpg?v=1726070543&width=1346",
+  },
+  {
+    id: "alt-faithfully-natural-rosemary-shampoo",
+    slug: "faithfully-natural-rosemary-shampoo",
+    name: "Rosemary Shampoo Bar",
+    brand: "Faithfully Natural Soap Co.",
+    basisText:
+      "Faithfully Natural Soap Co. is an explicitly Christian-owned family business. Their own About page states \"we started Faithfully Natural out of a desire to honor God in the way we care for our bodies and steward His creation.\"",
+    basisConfidence: 1,
+    basisSources: ["https://faithfullynaturalsoapco.com/pages/about-us"],
+    affiliateUrl:
+      "https://faithfullynaturalsoapco.com/products/growth?sca_ref=11781009.vhEdmqEWQH570GWc",
+    affiliateType: "direct",
+    asin: null,
+    swapType: "christian",
+    category: "Soap & Body",
+    imageUrl:
+      "https://faithfullynaturalsoapco.com/cdn/shop/files/CD08D2FC-84FA-4481-BD98-33D4662C53A0.jpg?v=1707183602&width=1346",
+  },
 ];
 
 export const productAlternativeMap: ProductAlternativeMapEntry[] = [
@@ -1334,4 +1681,17 @@ export const productAlternativeMap: ProductAlternativeMapEntry[] = [
   { productId: "urban-decay-stay-naked-foundation", alternativeId: "alt-cbc-tallow-skin-first-foundation", rank: "primary" },
   { productId: "pacifica-crystal-spray-fragrance", alternativeId: "alt-cbc-wisdom-eau-de-parfum", rank: "primary" },
   { productId: "moon-juice-cosmic-cream", alternativeId: "alt-cbc-divine-healing-moisturizer", rank: "primary" },
+
+  // Faithfully Natural Soap Co. — product-level entries for specific
+  // Dr. Bronner's scent variants (the brand-level Dr. Bronner's card above
+  // keeps pointing to Boll Weevil as primary; these sit alongside it) and
+  // the Old Spice Wild Collection Krakengard deodorant, a new brand.
+  { productId: "dr-bronners-unscented-soap", alternativeId: "alt-faithfully-natural-original-remix", rank: "primary" },
+  { productId: "dr-bronners-lavender-soap", alternativeId: "alt-faithfully-natural-garden-bar", rank: "primary" },
+  { productId: "dr-bronners-tea-tree-soap", alternativeId: "alt-faithfully-natural-the-cure-bar", rank: "primary" },
+  { productId: "dr-bronners-eucalyptus-soap", alternativeId: "alt-faithfully-natural-lifechanger", rank: "primary" },
+  { productId: "dr-bronners-citrus-soap", alternativeId: "alt-faithfully-natural-citrus-blast", rank: "primary" },
+  { productId: "dr-bronners-castile-shampoo", alternativeId: "alt-faithfully-natural-rosemary-shampoo", rank: "primary" },
+  { productId: "old-spice-krakengard-deodorant", alternativeId: "alt-faithfully-natural-deodorant-lemon-tea-tree", rank: "primary" },
+  { productId: "old-spice-krakengard-deodorant", alternativeId: "alt-faithfully-natural-deodorant-unscented", rank: "secondary" },
 ];
